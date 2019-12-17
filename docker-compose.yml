@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  # https://github.com/docker-library/mongo/issues/329#issuecomment-460858099
+  db:
+    image: mongo:4-bionic
+    restart: always
+    ports:
+      - ${MONGODB_PORT}:27017
+    environment:
+      MONGO_INITDB_NON_ROOT_DATABASE: ${MONGODB_NAME}
+      MONGO_INITDB_NON_ROOT_USERNAME: ${MONGODB_USER}
+      MONGO_INITDB_NON_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+    volumes:
+      - mongo-data:/data/db
+      - ./scripts/docker/initialize_db.sh:/docker-entrypoint-initdb.d/initialize.sh
+
+volumes:
+  mongo-data:
