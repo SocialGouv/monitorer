@@ -1,22 +1,22 @@
 const mongoose = require("mongoose");
 
 const Checkpoint = mongoose.model("Checkpoint", {
-  address: {
-    type: String,
-    required: true
-  },
   date: {
+    required: true,
     type: Date,
-    required: true
   },
   isUp: {
+    required: true,
     type: Boolean,
-    required: true
   },
   latency: {
+    required: true,
     type: Number,
-    required: true
-  }
+  },
+  uri: {
+    required: true,
+    type: String,
+  },
 });
 
 module.exports = Checkpoint;

@@ -11,8 +11,10 @@ max_line_length = 100
 trim_trailing_whitespace = true
 
 [*.md]
-max_line_length = 0
 trim_trailing_whitespace = false
+
+[*.nix]
+indent_size = 1
 
 [COMMIT_EDITMSG]
 max_line_length = 0

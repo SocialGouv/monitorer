@@ -1,0 +1,22 @@
+# Monitorer configuration version:
+version: 1
+
+services:
+  - name: Website Example
+    type: html
+    uri: https://example.com
+    expectations:
+      - selector: h1
+        method: text
+        value: Example Domain
+
+  - name: API Example
+    type: json
+    uri: https://jsonplaceholder.typicode.com/posts
+    expectations:
+      - selector: userId
+        method: type
+        value: Number
+      - selector: title
+        method: value
+        value: sunt aut facere repellat provident occaecati excepturi optio reprehenderit

@@ -1,0 +1,40 @@
+{
+  "extends": ["@socialgouv/eslint-config-strict", "plugin:jsdoc/recommended", "prettier"],
+  "plugins": ["sort-requires", "eslint-plugin-jsdoc", "prettier"],
+  "parser": "espree",
+  "rules": {
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "sort-requires/sort-requires": "error",
+    "jsdoc/require-description": "error",
+    "jsdoc/require-param-description": "off",
+    "jsdoc/require-property-description": "off",
+    "jsdoc/require-returns-description": "off",
+    "prettier/prettier": "error"
+  },
+  "env": {
+    "browser": false,
+    "node": true
+  },
+  "overrides": [
+    {
+      "files": ["src/web/public/js/**/*.js"],
+      "env": {
+        "browser": true,
+        "node": false
+      },
+      "globals": {
+        "Chart": "readonly",
+        "CodeMirror": "readonly"
+      }
+    },
+    {
+      "files": ["tests/**/*.js", "jest.setup.js", "*.test.js"],
+      "env": {
+        "jest": true
+      },
+      "rules": {
+        "no-console": "off"
+      }
+    }
+  ]
+}

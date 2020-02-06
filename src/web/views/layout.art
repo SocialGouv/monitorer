@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ $imports.meta.title }}</title>
+
+    <link
+      crossorigin="anonymous"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.4.1/pulse/bootstrap.min.css"
+      integrity="sha256-ptpQIlR9AGvrr1J7QpHP59WO0Fcl3Gz2c8nRoPCEGRI="
+      rel="stylesheet"
+    >
+    <link href="/css/main.css" rel="stylesheet">
+    {{ block 'styles' }}{{ /block }}
+  </head>
+  <body class="d-flex flex-column">
+    <nav class="navbar fixed-top navbar-dark bg-dark shadow-sm">
+      <div class="container d-flex justify-content-between">
+        <a href="/" class="navbar-brand d-flex align-items-center">
+          <span class="header-brand">{{ $imports.meta.title }}</span>
+        </a>
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="/admin">Administration</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="d-flex flex-grow-1">
+      <div class="container d-flex flex-grow-1 flex-column bg-light py-4">
+        {{ block 'content' }}{{ /block }}
+      </div>
+    </main>
+
+    <footer class="fixed-bottom bg-dark">
+      <div class="container pb-2 pt-2 text-right text-muted">
+        Freely powered by
+        <a href="https://github.com/SocialGouv/monitorer" target="_blank">Monitorer</a>.
+      </div>
+    </footer>
+
+    <script
+      crossorigin="anonymous"
+      defer
+      integrity="sha256-Hhwv1ElzvrH6ZuiIDWEO6xBYW3lmFYrapwcjgXhpL6g="
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.min.js"
+    ></script>
+    {{ block 'scripts' }}{{ /block }}
+  </body>
+</html>

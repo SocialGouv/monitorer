@@ -1,0 +1,12 @@
+main {
+  margin-bottom: 2rem;
+  margin-top: 5rem;
+}
+
+footer {
+  font-size: 0.75rem;
+}
+
+.btn:focus {
+  box-shadow: none;
+}

@@ -1,7 +1,4 @@
 ########################################
-# Custom
-
-########################################
 # Node
 
 # Logs
@@ -183,3 +180,16 @@ $RECYCLE.BIN/
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
+
+########################################
+# Custom
+
+/build
+/dist
+
+!/lib/server/public
+!/lib/web/public
+!/src/server/public
+!/src/web/public
+
+/RELEASE_NOTES.md

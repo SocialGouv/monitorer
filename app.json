@@ -1,0 +1,64 @@
+{
+  "name": "Monitorer",
+  "description": "A deploy-in-one-click web services uptime monitorer.",
+  "addons": [
+    {
+      "plan": "mongolab:sandbox",
+      "as": "MONGO"
+    },
+    {
+      "plan": "papertrail:choklad"
+    }
+  ],
+  "env": {
+    "MONITORER_ADMIN_PASSWORD": {
+      "description": "Website administration password.",
+      "generator": "secret"
+    },
+    "MONITORER_ADMIN_USER": {
+      "description": "Website administration username.",
+      "value": "admin"
+    },
+    "MONITORER_CRON": {
+      "description": "Uptime checking interval cron (see https://crontab.guru). Each minute by default.",
+      "value": "* * * * *"
+    },
+    "MONITORER_TITLE": {
+      "description": "The website title for your Monitorer instance.",
+      "value": "Monitorer"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "hobby"
+    },
+    "worker": {
+      "quantity": 1,
+      "size": "hobby"
+    }
+  },
+  "image": "heroku/nodejs",
+  "keywords": [
+    "api",
+    "check",
+    "checker",
+    "checking",
+    "dashboard",
+    "javascript",
+    "job",
+    "js",
+    "latency",
+    "monitor",
+    "node",
+    "nodejs",
+    "service",
+    "webservice",
+    "website",
+    "uptime"
+  ],
+  "repository": "https://github.com/SocialGouv/monitorer",
+  "stack": "heroku-18",
+  "success_url": "/",
+  "website": "https://github.com/SocialGouv/monitorer"
+}

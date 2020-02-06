@@ -1,0 +1,23 @@
+{{ extend '../layout.art' }}
+
+{{ block 'styles' }}
+  <link href="/css/index.css" rel="stylesheet">
+{{ /block }}
+
+{{ block 'content' }}
+  <h1>Dashboard</h1>
+  {{ each services }}
+    <h2>{{ $value.name }}</h2>
+    <canvas class="js-chart chart" data-uri="{{ $value.uri }}"></canvas>
+  {{ /each }}
+{{ /block }}
+
+{{ block 'scripts' }}
+  <script
+    crossorigin="anonymous"
+    defer
+    integrity="sha256-TQq84xX6vkwR0Qs1qH5ADkP+MvH0W+9E7TdHJsoIQiM="
+    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"
+  ></script>
+  <script defer src="/js/index.js" type="module"></script>
+{{ /block }}
