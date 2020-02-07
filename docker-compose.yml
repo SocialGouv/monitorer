@@ -6,11 +6,11 @@ services:
     image: mongo:4-bionic
     restart: always
     ports:
-      - ${MONGODB_PORT}:27017
+      - ${MONGO_PORT}:27017
     environment:
-      MONGO_INITDB_NON_ROOT_DATABASE: ${MONGODB_NAME}
-      MONGO_INITDB_NON_ROOT_USERNAME: ${MONGODB_USER}
-      MONGO_INITDB_NON_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+      MONGO_INITDB_NON_ROOT_DATABASE: ${MONGO_NAME}
+      MONGO_INITDB_NON_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_NON_ROOT_PASSWORD: ${MONGO_PASSWORD}
     volumes:
       - mongo-data:/data/db
       - ./scripts/docker/initialize_db.sh:/docker-entrypoint-initdb.d/initialize.sh

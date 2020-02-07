@@ -1,0 +1,4 @@
+# https://github.com/JasonEtco/todo#configuring-for-your-project
+todo:
+  autoAssign: "ivangabriele"
+  label: ":label: todo"

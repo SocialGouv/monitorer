@@ -1,0 +1,140 @@
+{
+  "$id": "https://github.com/SocialGouv/monitorer/blob/master/src/shared/schemas/configuration.v1.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+
+  "$defs": {
+    "service": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "type": {
+              "const": "html"
+            },
+            "uri": {
+              "type": "string",
+              "minLength": 1
+            },
+            "expectations": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/serviceExpectationHtml" },
+              "minItems": 1
+            }
+          },
+          "additionalProperties": false,
+          "required": ["name", "type", "uri", "expectations"]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "type": {
+              "const": "json"
+            },
+            "uri": {
+              "type": "string",
+              "minLength": 1
+            },
+            "expectations": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/serviceExpectationJson" },
+              "minItems": 1
+            }
+          },
+          "additionalProperties": false,
+          "required": ["name", "type", "uri", "expectations"]
+        }
+      ]
+    },
+
+    "serviceExpectationHtml": {
+      "type": "object",
+      "properties": {
+        "selector": {
+          "type": "string",
+          "minLength": 1
+        },
+        "method": {
+          "enum": ["text"]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false,
+      "required": ["selector", "method", "value"]
+    },
+
+    "serviceExpectationJson": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "selector": {
+              "type": "string",
+              "minLength": 1
+            },
+            "method": {
+              "const": "type"
+            },
+            "value": {
+              "enum": [
+                "Array",
+                "Boolean",
+                "Function",
+                "Null",
+                "Number",
+                "Object",
+                "RegExp",
+                "String",
+                "Undefined"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "required": ["selector", "method", "value"]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "selector": {
+              "type": "string",
+              "minLength": 1
+            },
+            "method": {
+              "const": "value"
+            },
+            "value": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": false,
+          "required": ["selector", "method", "value"]
+        }
+      ]
+    }
+  },
+
+  "type": "object",
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "services": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/service" },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false,
+  "required": ["version", "services"]
+}
