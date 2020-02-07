@@ -1,6 +1,6 @@
 {
   "name": "monitorer",
-  "version": "0.0.0",
+  "version": "1.0.0-alpha.0",
   "description": "A deploy-in-one-click web services uptime monitorer.",
   "license": "Apache-2.0",
   "private": true,
