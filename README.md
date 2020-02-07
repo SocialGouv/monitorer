@@ -112,7 +112,7 @@ This repository source code is distributed under an [Apache 2.0 license][link-li
 [img-heroku]: https://img.shields.io/badge/-Deploy%20to%20Heroku-7056bf?style=for-the-badge&logo=heroku
 [img-license]: https://img.shields.io/github/license/SocialGouv/monitorer?style=flat-square
 [img-travis]: https://img.shields.io/travis/com/SocialGouv/monitorer/master.svg?style=flat-square
-[img-version]: https://img.shields.io/github/v/release/SocialGouv/monitorer?style=flat-square
+[img-version]: https://img.shields.io/github/v/release/SocialGouv/monitorer?include_prereleases&style=flat-square
 
 [link-codecov]: https://codecov.io/gh/SocialGouv/monitorer
 [link-heroku]: https://heroku.com/deploy
