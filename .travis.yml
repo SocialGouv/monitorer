@@ -41,6 +41,9 @@ jobs:
         edge:
           branch: master
         release_notes_file: ./RELEASE_NOTES.md
+        on:
+          repo: SocialGouv/monitorer
+          tags: true
 
 # Limit branches builds to "master" & "develop" ones:
 branches:
