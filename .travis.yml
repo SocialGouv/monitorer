@@ -5,6 +5,11 @@ node_js:
 cache:
   yarn: true
 
+stages:
+  - Test
+  - name: Release
+    if: tag IS present
+
 jobs:
   include:
     - stage: Test
@@ -36,9 +41,6 @@ jobs:
         edge:
           branch: master
         release_notes_file: ./RELEASE_NOTES.md
-        on:
-          repo: SocialGouv/monitorer
-          tags: true
 
 # Limit branches builds to "master" & "develop" ones:
 branches:
