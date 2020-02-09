@@ -30,7 +30,7 @@
     "koa": "2.11.0",
     "koa-art-template": "1.1.1",
     "koa-bodyparser": "4.2.1",
-    "koa-router": "7.4.0",
+    "koa-router": "8.0.7",
     "koa-static": "5.0.0",
     "mongoose": "5.8.11",
     "ramda": "0.27.0",
