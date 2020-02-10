@@ -1,3 +1,5 @@
+const log = require("@inspired-beings/log");
+
 const yaml = require("yaml");
 
 const Configuration = require("../../../shared/models/Configuration");
@@ -11,16 +13,22 @@ class WebIndexController {
    * @returns {Promise<void>}
    */
   async get(ctx) {
-    const configuration = await Configuration.findOne();
-    if (configuration === null) {
-      ctx.render("pages/index");
+    try {
+      const configuration = await Configuration.findOne();
+      if (configuration === null) {
+        ctx.render("pages/index");
 
-      return;
+        return;
+      }
+
+      const { services } = yaml.parse(configuration.source);
+
+      ctx.render("pages/index", { services });
+    } catch (err) {
+      log.err(`[web] [controllers/web/WebIndexController#get()] Error: ${err.message}`);
+
+      ctx.status = 400;
     }
-
-    const { services } = yaml.parse(configuration.source);
-
-    ctx.render("pages/index", { services });
   }
 }
 

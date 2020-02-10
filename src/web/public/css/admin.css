@@ -12,6 +12,9 @@ textarea {
 .CodeMirror {
   /* https://codemirror.net/demo/resize.html */
   height: auto;
-  flex-grow: 1;
-  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.table-buttonCell {
+  width: 1px;
 }

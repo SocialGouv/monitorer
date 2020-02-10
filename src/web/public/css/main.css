@@ -42,3 +42,7 @@ h2 {
     opacity: 0;
   }
 }
+
+.subtitle-small {
+  font-size: 0.875rem;
+}

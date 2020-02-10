@@ -9,9 +9,9 @@
     {{ each services }}
       <h2 class="d-flex justify-content-between align-items-end">
         {{ $value.name }}
-        <small class="subtitle-uri text-monospace text-muted">{{ $value.uri }}</small>
+        <small class="subtitle-small text-monospace text-muted">{{ $value.uri }}</small>
       </h2>
-      <div class="d-flex justify-content-between mt-3 mb-2">
+      <div class="d-flex justify-content-between mt-1 mb-5">
         <canvas class="js-uptimeChart chart" data-uri="{{ $value.uri }}"></canvas>
         <canvas class="js-latencyChart chart" data-uri="{{ $value.uri }}"></canvas>
       </div>
