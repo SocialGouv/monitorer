@@ -7,6 +7,20 @@
 
 A deploy-in-one-click web services uptime monitorer. In pure JS.
 
+## Example
+
+You can see it live at: https://socialgouv-monitor.herokuapp.com.
+
+## Screenshots
+
+### Dashboard
+
+[![Dashboard Screenshot][img-screenshot-dashboard]]
+
+### Administration
+
+[![Administration Screenshot][img-screenshot-admin]]
+
 ## Features
 
 - YAML configuration
@@ -29,6 +43,7 @@ A deploy-in-one-click web services uptime monitorer. In pure JS.
 ### Heroku
 
 In one click:
+
 
 [![Deploy to Heroku][img-heroku]][link-heroku]
 
@@ -108,6 +123,9 @@ This repository source code is distributed under an [Apache 2.0 license][link-li
 
 ---
 
+[img-screenshot-admin]: https://raw.githubusercontent.com/SocialGouv/monitorer/master/.github/screenshot-admin.png
+[img-screenshot-dashboard]: https://raw.githubusercontent.com/SocialGouv/monitorer/master/.github/screenshot-dashboard.png
+
 [img-codecov]: https://img.shields.io/codecov/c/github/SocialGouv/monitorer?style=flat-square
 [img-heroku]: https://img.shields.io/badge/-Deploy%20to%20Heroku-7056bf?style=for-the-badge&logo=heroku
 [img-license]: https://img.shields.io/github/license/SocialGouv/monitorer?style=flat-square
@@ -115,7 +133,7 @@ This repository source code is distributed under an [Apache 2.0 license][link-li
 [img-version]: https://img.shields.io/github/v/release/SocialGouv/monitorer?include_prereleases&style=flat-square
 
 [link-codecov]: https://codecov.io/gh/SocialGouv/monitorer
-[link-heroku]: https://heroku.com/deploy
+[link-heroku]: https://heroku.com/deploy?template=https://github.com/SocialGouv/monitorer/tree/master
 [link-license]: https://github.com/SocialGouv/monitorer/blob/master/LICENSE
 [link-travis]: https://travis-ci.com/SocialGouv/monitorer
 [link-version]: https://github.com/SocialGouv/monitorer/releases
