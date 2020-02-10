@@ -8,8 +8,25 @@
 
 {{ block 'content' }}
   {{ if configuration }}
-    <h2>Configuration</h2>
-    <textarea class="js-editor flex-grow-1" readonly>{{ configuration.source }}</textarea>
+    {{ if isAdmin }}
+      <h2>Configuration</h2>
+      <textarea class="js-editor flex-grow-1" readonly>{{ configuration.source }}</textarea>
+    {{ else }}
+      <h2>Autentication</h2>
+      <form class="js-form mt-2">
+        <div class="form-group">
+          <label>Username</label>
+          <input class="form-control" type="text">
+          <div class="invalid-feedback"></div>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input class="form-control" type="password">
+          <div class="invalid-feedback"></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Log In</button>
+      </form>
+    {{ /if }}
   {{ else }}
     <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
       <div class="spinner bg-primary"></div>

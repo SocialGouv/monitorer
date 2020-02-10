@@ -9,9 +9,11 @@ class WebAdminController {
    * @returns {Promise<void>}
    */
   async get(ctx) {
+    const { isAdmin } = ctx;
+
     const configuration = await Configuration.findOne();
 
-    await ctx.render("pages/admin", { configuration });
+    await ctx.render("pages/admin", { configuration, isAdmin });
   }
 }
 

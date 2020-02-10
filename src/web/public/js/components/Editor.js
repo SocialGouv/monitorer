@@ -7,20 +7,24 @@ export default class Editor {
    * @param {Element} $node
    */
   constructor($node) {
-    /** @type {import("codemirror").Editor} */
-    this.codeMirror = CodeMirror(
-      $codeMirrorEditor => {
-        $node.parentNode.replaceChild($codeMirrorEditor, $node);
-      },
-      {
-        lineNumbers: true,
-        mode: "yaml",
-        theme: "ayu-dark",
-        value: $node.value,
-      },
-    );
+    try {
+      /** @type {import("codemirror").Editor} */
+      this.codeMirror = CodeMirror(
+        $codeMirrorEditor => {
+          $node.parentNode.replaceChild($codeMirrorEditor, $node);
+        },
+        {
+          lineNumbers: true,
+          mode: "yaml",
+          theme: "ayu-dark",
+          value: $node.value,
+        },
+      );
 
-    this.bindEvents();
+      this.bindEvents();
+    } catch (err) {
+      console.error(`[web] [public/js/components/Editor()] Error: ${err.message}`);
+    }
   }
 
   /**
@@ -29,8 +33,12 @@ export default class Editor {
    * @returns {void}
    */
   bindEvents() {
-    // TODO Debounce the configuration update.
-    this.codeMirror.on("change", this.updateConfiguration.bind(this));
+    try {
+      // TODO Debounce the configuration update.
+      this.codeMirror.on("change", this.save.bind(this));
+    } catch (err) {
+      console.error(`[web] [public/js/components/Editor#bindEvents()] Error: ${err.message}`);
+    }
   }
 
   /**
@@ -38,13 +46,13 @@ export default class Editor {
    *
    * @returns {void}
    */
-  async updateConfiguration() {
-    const source = this.codeMirror.getValue();
-
+  async save() {
     try {
+      const source = this.codeMirror.getValue();
+
       await configuration.update(source);
     } catch (err) {
-      console.error(`Error: ${err.message}`);
+      console.error(`[web] [public/js/components/Editor#save()] Error: ${err.message}`);
     }
   }
 }

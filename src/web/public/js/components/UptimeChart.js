@@ -7,66 +7,70 @@ export default class UptimeChart {
    * @param {Element} $node
    */
   constructor($node) {
-    this.data = [];
-    this.uri = $node.dataset.uri;
+    try {
+      this.data = [];
+      this.uri = $node.dataset.uri;
 
-    this.chartJs = new Chart($node, {
-      data: {
-        datasets: [
-          {
-            backgroundColor: ({ dataIndex, dataset }) =>
-              dataset.data[dataIndex] === undefined || dataset.data[dataIndex].y !== 1
-                ? "red"
-                : "green",
-            barPercentage: 1,
-            categoryPercentage: 1,
-            data: [],
-            label: "Uptime",
-            minBarLength: 1,
+      this.chartJs = new Chart($node, {
+        data: {
+          datasets: [
+            {
+              backgroundColor: ({ dataIndex, dataset }) =>
+                dataset.data[dataIndex] === undefined || dataset.data[dataIndex].y !== 1
+                  ? "red"
+                  : "green",
+              barPercentage: 1,
+              categoryPercentage: 1,
+              data: [],
+              label: "Uptime",
+              minBarLength: 1,
+            },
+          ],
+        },
+        options: {
+          animation: {
+            duration: 0,
           },
-        ],
-      },
-      options: {
-        animation: {
-          duration: 0,
-        },
-        legend: {
-          display: false,
-        },
-        scales: {
-          xAxes: [
-            {
-              distribution: "linear",
-              labelString: "Date",
-              time: {
-                unit: "hour",
+          legend: {
+            display: false,
+          },
+          scales: {
+            xAxes: [
+              {
+                distribution: "linear",
+                labelString: "Date",
+                time: {
+                  unit: "hour",
+                },
+                type: "time",
               },
-              type: "time",
-            },
-          ],
-          yAxes: [
-            {
-              display: 0,
-              labelString: "Uptime",
-              suggestedMax: 1,
-              suggestedMin: -1,
-              ticks: {
-                max: 1,
-                min: -1,
-                stepSize: 1,
+            ],
+            yAxes: [
+              {
+                display: 0,
+                labelString: "Uptime",
+                suggestedMax: 1,
+                suggestedMin: -1,
+                ticks: {
+                  max: 1,
+                  min: -1,
+                  stepSize: 1,
+                },
+                type: "linear",
               },
-              type: "linear",
-            },
-          ],
+            ],
+          },
+          tooltips: {
+            enabled: false,
+          },
         },
-        tooltips: {
-          enabled: false,
-        },
-      },
-      type: "bar",
-    });
+        type: "bar",
+      });
 
-    this.update();
+      this.update();
+    } catch (err) {
+      console.error(`[web] [public/js/components/UptimeChart()] Error: ${err.message}`);
+    }
   }
 
   /**
@@ -75,15 +79,19 @@ export default class UptimeChart {
    * @returns {Promise<void>}
    */
   async update() {
-    const rawData = await checkpoint.index(this.uri);
-    const data = rawData.map(({ date, isUp }) => ({ x: date, y: isUp ? 1 : -1 }));
+    try {
+      const rawData = await checkpoint.index(this.uri);
+      const data = rawData.map(({ date, isUp }) => ({ x: date, y: isUp ? 1 : -1 }));
 
-    const newDataset = { ...this.chartJs.data.datasets[0] };
-    newDataset.data = data;
-    this.chartJs.data.datasets.pop();
-    this.chartJs.data.datasets.push(newDataset);
-    this.chartJs.update();
+      const newDataset = { ...this.chartJs.data.datasets[0] };
+      newDataset.data = data;
+      this.chartJs.data.datasets.pop();
+      this.chartJs.data.datasets.push(newDataset);
+      this.chartJs.update();
 
-    setTimeout(this.update.bind(this), 1000);
+      setTimeout(this.update.bind(this), 1000);
+    } catch (err) {
+      console.error(`[web] [public/js/components/UptimeChart#update()] Error: ${err.message}`);
+    }
   }
 }

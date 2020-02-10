@@ -22,6 +22,12 @@ class ApiConfigurationController {
    * @returns {Promise<void>}
    */
   async update(ctx) {
+    if (!ctx.isAdmin) {
+      ctx.status = 401;
+
+      return;
+    }
+
     const { source } = ctx.request.body;
 
     try {

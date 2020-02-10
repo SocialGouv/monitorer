@@ -7,6 +7,7 @@ const log = require("@inspired-beings/log");
 const path = require("path");
 
 const connectMongo = require("../shared/libs/connectMongo");
+const isAdmin = require("./middlewares/isAdmin");
 const router = require("./router");
 
 if (process.env.NODE_ENV !== "production") {
@@ -40,6 +41,7 @@ async function start() {
 
   app.use(koaBodyParser());
   app.use(koaStatic(path.join(__dirname, "public")));
+  app.use(isAdmin);
   app.use(router());
 
   app.listen(PORT, err => {
