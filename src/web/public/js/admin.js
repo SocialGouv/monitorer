@@ -1,3 +1,6 @@
 import Editor from "./components/Editor.js";
+import waitForInitializationAndRun from "./libs/waitForInitializationAndRun.js";
 
-new Editor(document.querySelector(".js-editor"));
+waitForInitializationAndRun(() => {
+  new Editor(document.querySelector(".js-editor"));
+});

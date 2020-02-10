@@ -11,10 +11,16 @@ class WebIndexController {
    * @returns {Promise<void>}
    */
   async get(ctx) {
-    const { source } = await Configuration.findOne();
-    const { services } = yaml.parse(source);
+    const configuration = await Configuration.findOne();
+    if (configuration === null) {
+      ctx.render("pages/index");
 
-    await ctx.render("pages/index", { services });
+      return;
+    }
+
+    const { services } = yaml.parse(configuration.source);
+
+    ctx.render("pages/index", { services });
   }
 }
 

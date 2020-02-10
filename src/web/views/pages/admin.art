@@ -1,39 +1,25 @@
 {{ extend '../layout.art' }}
 
 {{ block 'styles' }}
-  <link
-    crossorigin="anonymous"
-    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.51.0/codemirror.min.css"
-    integrity="sha256-vZ3SaLOjnKO/gGvcUWegySoDU6ff33CS5i9ot8J9Czk="
-    rel="stylesheet"
-  >
-  <link
-    crossorigin="anonymous"
-    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.51.0/theme/ayu-dark.min.css"
-    integrity="sha256-9x3KDtDYj0apPnHZT9OoJpnoTPfADDHWsvLhMuZ39e4="
-    rel="stylesheet"
-  >
+  <link href="/css/vendors/codemirror-5.51.0.min.css" rel="stylesheet">
+  <link href="/css/vendors/codemirror-5.51.0.theme.ayu.min.css" rel="stylesheet">
   <link href="/css/admin.css" rel="stylesheet">
 {{ /block }}
 
 {{ block 'content' }}
-  <h1>Administration</h1>
-  <h2>Configuration</h2>
-  <textarea class="js-editor flex-grow-1" readonly>{{ configuration.source }}</textarea>
+  {{ if configuration }}
+    <h2>Configuration</h2>
+    <textarea class="js-editor flex-grow-1" readonly>{{ configuration.source }}</textarea>
+  {{ else }}
+    <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
+      <div class="spinner bg-primary"></div>
+      <div class="mt-4 text-muted">Initializing database…</div>
+    </div>
+  {{ /if }}
 {{ /block }}
 
 {{ block 'scripts' }}
-  <script
-    crossorigin="anonymous"
-    defer
-    integrity="sha256-nSKfNYsl/gyXisZDZFKVh+LvOHEz65JIhgjYfwaqGDE="
-    src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.51.0/codemirror.min.js"
-  ></script>
-  <script
-    crossorigin="anonymous"
-    defer
-    integrity="sha256-G1Y7WHjmBIbgQctjcuj64V2zVyIS6EVUj4PaIneJcDc="
-    src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.51.0/mode/yaml/yaml.min.js"
-  ></script>
+  <script defer src="/js/vendors/codemirror-5.51.0.min.js"></script>
+  <script defer src="/js/vendors/codemirror-5.51.0.mode.yaml.min.js"></script>
   <script defer src="/js/admin.js" type="module"></script>
 {{ /block }}
