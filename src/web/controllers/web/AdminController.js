@@ -1,3 +1,7 @@
+const log = require("@inspired-beings/log");
+const numeral = require("numeral");
+
+const Checkpoint = require("../../../shared/models/Checkpoint");
 const Configuration = require("../../../shared/models/Configuration");
 
 class WebAdminController {
@@ -9,11 +13,36 @@ class WebAdminController {
    * @returns {Promise<void>}
    */
   async get(ctx) {
-    const { isAdmin } = ctx;
+    try {
+      const { isAdmin } = ctx;
 
-    const configuration = await Configuration.findOne();
+      if (!isAdmin) {
+        ctx.render("pages/admin", { isAdmin });
 
-    await ctx.render("pages/admin", { configuration, isAdmin });
+        return;
+      }
+
+      const checkpointsUris = await Checkpoint.find()
+        .distinct("uri")
+        .sort();
+      const checkpoints = await Promise.all(
+        checkpointsUris.map(async uri => ({
+          length: numeral((await Checkpoint.find({ uri })).length).format("0,0"),
+          uri,
+        })),
+      );
+
+      const checkpointsStats = await Checkpoint.collection.stats();
+      const checkpointsSize = numeral(checkpointsStats.storageSize).format("0,0.0 b");
+
+      const configuration = await Configuration.findOne();
+
+      ctx.render("pages/admin", { checkpoints, checkpointsSize, configuration, isAdmin });
+    } catch (err) {
+      log.err(`[web] [controllers/web/WebAdminController#get()] Error: ${err.message}`);
+
+      ctx.status = 400;
+    }
   }
 }
 

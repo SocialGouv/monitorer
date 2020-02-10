@@ -10,7 +10,44 @@
   {{ if configuration }}
     {{ if isAdmin }}
       <h2>Configuration</h2>
-      <textarea class="js-editor flex-grow-1" readonly>{{ configuration.source }}</textarea>
+      <textarea class="js-editor" readonly>{{ configuration.source }}</textarea>
+
+      <h2 class="d-flex justify-content-between align-items-end">
+        Maintenance
+        <small class="subtitle-small text-monospace text-muted">
+          Storage Size: {{ checkpointsSize }}
+        </small>
+      </h2>
+      <table class="js-maintenance table table-borderless table-striped">
+        <tbody>
+          {{ each checkpoints }}
+            <tr>
+              <th scope="row">{{ $value.uri }}</th>
+              <th class="text-right">{{ $value.length }}</th>
+              <td class="table-buttonCell">
+                <button
+                  class="js-maintenance-cleanButton btn btn-warning btn-sm"
+                  data-uri="{{ $value.uri }}"
+                  title="Remove older-than-one-week history for: {{ $value.uri }}"
+                  type="button"
+                >
+                  CLEAN
+                </button>
+              </td>
+              <td class="table-buttonCell">
+                <button
+                  class="js-maintenance-dropButton btn btn-danger btn-sm"
+                  data-uri="{{ $value.uri }}"
+                  title="Remove the entire history for: {{ $value.uri }}"
+                  type="button"
+                >
+                  DROP
+                </button>
+              </td>
+            </tr>
+          {{ /each }}
+        </tbody>
+      </table>
     {{ else }}
       <h2>Autentication</h2>
       <form class="js-form mt-2">

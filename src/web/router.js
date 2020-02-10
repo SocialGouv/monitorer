@@ -9,6 +9,7 @@ const koaRouter = new KoaRouter();
 
 module.exports = function router() {
   koaRouter.get("/api/checkpoints", ApiCheckpointController.index);
+  koaRouter.delete("/api/checkpoints", ApiCheckpointController.delete);
 
   koaRouter.get("/api/configuration", ApiConfigurationController.get);
   koaRouter.patch("/api/configuration", ApiConfigurationController.update);
