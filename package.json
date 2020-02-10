@@ -1,5 +1,5 @@
 {
-  "name": "monitorer",
+  "name": "@socialgouv/monitorer",
   "version": "1.0.0-alpha.2",
   "description": "A deploy-in-one-click web services uptime monitorer.",
   "license": "Apache-2.0",
