@@ -2,11 +2,43 @@ main {
   margin-bottom: 2rem;
   margin-top: 5rem;
 }
-
 footer {
   font-size: 0.75rem;
+}
+h2 {
+  border-bottom: solid 1px #dddddd;
+  padding-bottom: 0.5rem;
 }
 
 .btn:focus {
   box-shadow: none;
+}
+
+.spinner {
+  -webkit-animation: sk-scaleout 1s infinite ease-in-out;
+  animation: sk-scaleout 1s infinite ease-in-out;
+  border-radius: 100%;
+  height: 2rem;
+  margin-top: -2rem;
+  width: 2rem;
+}
+@-webkit-keyframes sk-scaleout {
+  0% {
+    -webkit-transform: scale(0);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    opacity: 0;
+  }
+}
+@keyframes sk-scaleout {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 0;
+  }
 }

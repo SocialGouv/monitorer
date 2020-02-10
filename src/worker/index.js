@@ -22,15 +22,8 @@ async function run() {
   try {
     const mongo = await connectMongo();
 
-    let configuration = await Configuration.findOne();
-
-    // If the configuration doesn't exist yet, we initialize it:
-    if (configuration === null) {
-      await resetConfiguration();
-      configuration = await Configuration.findOne();
-    }
-
-    const configurationData = yaml.parse(configuration.source);
+    const { source } = await Configuration.findOne();
+    const configurationData = yaml.parse(source);
     await Promise.all(configurationData.services.map(checkService));
 
     await mongo.disconnect();
@@ -39,4 +32,21 @@ async function run() {
   }
 }
 
-new cron.CronJob(MONITORER_CRON, run, null, true);
+(async () => {
+  try {
+    const mongo = await connectMongo();
+
+    // If the configuration isn't stored in database yet, we initialize it:
+    const configuration = await Configuration.findOne();
+    if (configuration === null) {
+      await resetConfiguration();
+    }
+
+    await mongo.disconnect();
+
+    // Start cron job:
+    new cron.CronJob(MONITORER_CRON, run, null, true);
+  } catch (err) {
+    log.err(`[worker] Error: %s`, err.message || err);
+  }
+})();

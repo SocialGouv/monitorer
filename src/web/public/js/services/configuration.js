@@ -12,13 +12,13 @@ class Configuration {
   /**
    * Get the configuration from the API.
    *
-   * @returns {ConfigurationModel | string}
+   * @returns {ConfigurationModel | null}
    */
   async get() {
     try {
       const { data } = await axios.get("/configuration");
 
-      return data;
+      return typeof data === "object" ? data : null;
     } catch (err) {
       console.error(`[web] [public/js/services/Configuration#get()] Error: ${err.message}`);
 

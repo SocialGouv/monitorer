@@ -9,6 +9,7 @@ module.exports = {
     "<rootDir>/dist",
     "<rootDir>/node_modules",
     "<rootDir>/scripts",
+    "<rootDir>/src/web/public/js/vendors",
     "<rootDir>/tests",
   ],
   setupFilesAfterEnv: ["<rootDir>/tests/jest.setup.js"],

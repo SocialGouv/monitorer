@@ -3,12 +3,7 @@
     <meta charset="utf-8" />
     <title>{{ $imports.meta.title }}</title>
 
-    <link
-      crossorigin="anonymous"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.4.1/pulse/bootstrap.min.css"
-      integrity="sha256-ptpQIlR9AGvrr1J7QpHP59WO0Fcl3Gz2c8nRoPCEGRI="
-      rel="stylesheet"
-    >
+    <link href="/css/vendors/bootswatch-4.4.1.pulse.min.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
     {{ block 'styles' }}{{ /block }}
   </head>
@@ -37,12 +32,7 @@
       </div>
     </footer>
 
-    <script
-      crossorigin="anonymous"
-      defer
-      integrity="sha256-Hhwv1ElzvrH6ZuiIDWEO6xBYW3lmFYrapwcjgXhpL6g="
-      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.min.js"
-    ></script>
+    <script defer src="/js/vendors/axios-0.19.1.min.js"></script>
     {{ block 'scripts' }}{{ /block }}
   </body>
 </html>
