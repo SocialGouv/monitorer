@@ -10,7 +10,7 @@
     "dev:docker": "docker-compose start db",
     "dev:web": "nodemon --watch ./src/shared --watch ./src/web ./src/web",
     "dev:worker": "nodemon --watch ./src/shared --watch ./src/worker ./src/worker",
-    "setup": "docker-compose down -v && cpy --rename=\".env\" ./.env.example . && docker-compose up -d db && docker-compose stop",
+    "setup": "cpy --rename=\".env\" ./.env.example . && docker-compose down -v && docker-compose up -d db && docker-compose stop",
     "start:web": "node ./src/web/index.js",
     "start:worker": "node ./src/worker/index.js",
     "test": "yarn test:lint && yarn test:unit",
