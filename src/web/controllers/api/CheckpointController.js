@@ -18,7 +18,7 @@ class ApiCheckpointController {
 
       if (typeof uri !== "string" || uri.length === 0) {
         ctx.body = {
-          error: "The `uri` query parameter is mandatory",
+          errors: [{ message: "The `uri` query parameter is mandatory." }],
         };
         ctx.status = 400;
 
@@ -54,7 +54,7 @@ class ApiCheckpointController {
 
       if (typeof until !== "string" || until.length === 0) {
         ctx.body = {
-          error: "The `until` query parameter is mandatory.",
+          errors: [{ message: "The `until` query parameter is mandatory." }],
         };
         ctx.status = 400;
 
@@ -63,7 +63,7 @@ class ApiCheckpointController {
 
       if (typeof uri !== "string" || uri.length === 0) {
         ctx.body = {
-          error: "The `uri` query parameter is mandatory.",
+          errors: [{ message: "The `uri` query parameter is mandatory." }],
         };
         ctx.status = 400;
 

@@ -1,4 +1,4 @@
-import checkpoint from "../services/checkpoint.js";
+import checkpointService from "../services/checkpoint.js";
 
 export default class Maintenance {
   /**
@@ -46,7 +46,7 @@ export default class Maintenance {
     try {
       const { uri } = event.target.dataset;
 
-      await checkpoint.delete(uri);
+      await checkpointService.delete(uri);
 
       location.reload();
     } catch (err) {
@@ -65,7 +65,7 @@ export default class Maintenance {
     try {
       const { uri } = event.target.dataset;
 
-      await checkpoint.delete(uri, Date.now());
+      await checkpointService.delete(uri, Date.now());
 
       location.reload();
     } catch (err) {

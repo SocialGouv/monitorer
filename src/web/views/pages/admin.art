@@ -9,8 +9,24 @@
 {{ block 'content' }}
   {{ if configuration }}
     {{ if isAdmin }}
-      <h2>Configuration</h2>
-      <textarea class="js-editor" readonly>{{ configuration.source }}</textarea>
+      <div class="js-configuration">
+        <h2 class="d-flex justify-content-between align-items-end">
+          Configuration
+          <button
+            class="js-configuration-saveButton btn btn-danger btn-sm"
+            title="Update the configuration"
+            type="button"
+          >
+            UPDATE
+          </button>
+        </h2>
+        <div class="js-configuration-error alert alert-danger d-none" role="alert">
+          <h4 class="alert-heading">Your configuration is invalid!</h4>
+          <p>Please fix these errors:</p>
+          <ul class="js-configuration-errorList"></ul>
+        </div>
+        <textarea class="js-configuration-editor" readonly>{{ configuration.source }}</textarea>
+      </div>
 
       <h2 class="d-flex justify-content-between align-items-end">
         Maintenance

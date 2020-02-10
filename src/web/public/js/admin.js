@@ -1,12 +1,12 @@
-import Editor from "./components/Editor.js";
+import Configuration from "./components/Configuration.js";
 import Form from "./components/Form.js";
 import Maintenance from "./components/Maintenance.js";
 import waitForInitializationAndRun from "./libs/waitForInitializationAndRun.js";
 
 waitForInitializationAndRun(() => {
   try {
-    const $editor = document.querySelector(".js-editor");
-    if ($editor !== null) new Editor($editor);
+    const $configuration = document.querySelector(".js-configuration");
+    if ($configuration !== null) new Configuration($configuration);
 
     const $form = document.querySelector(".js-form");
     if ($form !== null) new Form($form);
