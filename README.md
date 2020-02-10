@@ -15,11 +15,11 @@ You can see it live at: https://socialgouv-monitor.herokuapp.com.
 
 ### Dashboard
 
-[![Dashboard Screenshot][img-screenshot-dashboard]]
+![Dashboard Screenshot][img-screenshot-dashboard]
 
 ### Administration
 
-[![Administration Screenshot][img-screenshot-admin]]
+![Administration Screenshot][img-screenshot-admin]
 
 ## Features
 
