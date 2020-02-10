@@ -1,19 +1,32 @@
 {
   "extends": ["@socialgouv/eslint-config-strict", "plugin:jsdoc/recommended", "prettier"],
-  "plugins": ["sort-requires", "eslint-plugin-jsdoc", "prettier"],
+  "plugins": ["sort-requires", "jsdoc", "prettier"],
   "parser": "espree",
   "env": {
     "browser": false,
     "node": true
   },
   "rules": {
-    "no-console": ["error", { "allow": ["warn", "error"] }],
-    "sort-requires/sort-requires": "error",
+    "jsdoc/newline-after-description": "error",
+    "jsdoc/no-undefined-types": "error",
     "jsdoc/require-description": "error",
+    "jsdoc/require-hyphen-before-param-description": "error",
+    "jsdoc/require-jsdoc": "error",
+    "jsdoc/require-param": "error",
     "jsdoc/require-param-description": "off",
+    "jsdoc/require-param-name": "error",
+    "jsdoc/require-param-type": "error",
     "jsdoc/require-property-description": "off",
+    "jsdoc/require-returns": "error",
     "jsdoc/require-returns-description": "off",
-    "prettier/prettier": "error"
+    "jsdoc/require-returns-type": "error",
+    "jsdoc/valid-types": "error",
+
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+
+    "prettier/prettier": "error",
+
+    "sort-requires/sort-requires": "error"
   },
   "ignorePatterns": ["src/web/public/js/vendors/**/*.js"],
   "overrides": [

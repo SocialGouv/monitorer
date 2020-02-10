@@ -22,7 +22,7 @@ const Checkpoint = require("../../shared/models/Checkpoint");
 /**
  * Check that the HTML source returned by a service URI meet the expectations for this service.
  *
- * @param {ServiceModel} service A service.
+ * @param {ServiceModel} service
  *
  * @returns {Promise<void>}
  */
