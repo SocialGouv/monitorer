@@ -4,7 +4,7 @@ const R = require("ramda");
 const yaml = require("yaml");
 
 const SCHEMA = {
-  1: require("../../../shared/schemas/configuration.v1"),
+  1: require("../../shared/schemas/configuration.v1"),
 };
 
 /**
@@ -19,11 +19,17 @@ function validateConfiguration(source) {
     const configuration = yaml.parse(source);
 
     const version = configuration.version;
-    if (R.type(version) === "Undefined") throw new Error(`The version is undefined.`);
-    if (R.type(version) !== "Number") throw new Error(`The version is not a number.`);
+    if (R.type(version) === "Undefined") {
+      return [false, [{ message: `The configuration version is undefined.` }]];
+    }
+    if (R.type(version) !== "Number") {
+      return [false, [{ message: `The configuration version is not a number.` }]];
+    }
 
     const schema = SCHEMA[version];
-    if (R.type(schema) === "Undefined") throw new Error(`This version is not supported.`);
+    if (R.type(schema) === "Undefined") {
+      return [false, [{ message: `This configuration version is not supported.` }]];
+    }
 
     const ajv = new Ajv();
     const ajvValidate = ajv.compile(schema);
@@ -31,6 +37,8 @@ function validateConfiguration(source) {
     return [ajvValidate(configuration), ajvValidate.errors];
   } catch (err) {
     log.err(`[web] [helpers/validateConfiguration()] Error: ${err.message}`);
+
+    return [false, [{ message: `Something went wrong during validation process.` }]];
   }
 }
 

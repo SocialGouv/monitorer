@@ -1,6 +1,7 @@
 const log = require("@inspired-beings/log");
 
 const Configuration = require("../../../shared/models/Configuration");
+const validateConfiguration = require("../../helpers/validateConfiguration");
 
 class ApiConfigurationController {
   /**
@@ -41,7 +42,18 @@ class ApiConfigurationController {
 
       if (typeof source !== "string" || source.length === 0) {
         ctx.body = {
-          error: "The `source` body property is mandatory.",
+          errors: [{ message: "The `source` body property is mandatory." }],
+        };
+        ctx.status = 400;
+
+        return;
+      }
+
+      const [isValid, validationErrors] = validateConfiguration(source);
+
+      if (!isValid) {
+        ctx.body = {
+          errors: validationErrors,
         };
         ctx.status = 400;
 
