@@ -16,8 +16,10 @@ class WebAdminController {
     try {
       const { isAdmin } = ctx;
 
+      const configuration = await Configuration.findOne();
+
       if (!isAdmin) {
-        ctx.render("pages/admin", { isAdmin });
+        ctx.render("pages/admin", { configuration, isAdmin });
 
         return;
       }
@@ -34,8 +36,6 @@ class WebAdminController {
 
       const checkpointsStats = await Checkpoint.collection.stats();
       const checkpointsSize = numeral(checkpointsStats.storageSize).format("0,0.0 b");
-
-      const configuration = await Configuration.findOne();
 
       ctx.render("pages/admin", { checkpoints, checkpointsSize, configuration, isAdmin });
     } catch (err) {
