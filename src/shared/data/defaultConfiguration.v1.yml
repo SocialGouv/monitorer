@@ -1,6 +1,9 @@
 # Monitorer configuration version:
 version: 1
 
+webhooks:
+  - https://example.com
+
 services:
   - name: Website Example
     type: html

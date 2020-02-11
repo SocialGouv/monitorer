@@ -22,16 +22,17 @@ const checkJson = require("../checkers/checkJson");
  * Check a service with the right type checker.
  *
  * @param {ServiceModel} service
+ * @param {string[]} webhooks
  */
-async function checkService(service) {
+async function checkService(service, webhooks) {
   try {
     switch (service.type) {
       case "html":
-        await checkHtml(service);
+        await checkHtml(service, webhooks);
         break;
 
       case "json":
-        await checkJson(service);
+        await checkJson(service, webhooks);
         break;
 
       default:

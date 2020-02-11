@@ -23,8 +23,9 @@ async function run() {
     const mongo = await connectMongo();
 
     const { source } = await Configuration.findOne();
-    const configurationData = yaml.parse(source);
-    await Promise.all(configurationData.services.map(checkService));
+    const configuration = yaml.parse(source);
+    const { services, webhooks } = configuration;
+    await Promise.all(services.map(service => checkService(service, webhooks)));
 
     await mongo.disconnect();
   } catch (err) {
