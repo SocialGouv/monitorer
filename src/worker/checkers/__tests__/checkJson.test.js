@@ -86,7 +86,7 @@ describe("[Worker] checkers/checkJson()", () => {
     expect(lastCheckpoint.isUp).toStrictEqual(false);
     expect(lastCheckpoint.latency).toBeGreaterThanOrEqual(0);
     expect(lastCheckpoint.uri).toStrictEqual(service.uri);
-    expect(console.log).not.toHaveBeenCalled();
+    expect(console.log).toHaveBeenCalledTimes(3);
   });
 
   test(`should fail with an unknown method`, async () => {
@@ -117,7 +117,7 @@ describe("[Worker] checkers/checkJson()", () => {
     expect(lastCheckpoint.isUp).toStrictEqual(false);
     expect(lastCheckpoint.latency).toStrictEqual(-1);
     expect(lastCheckpoint.uri).toStrictEqual(service.uri);
-    expect(console.log).toHaveBeenCalled();
+    expect(console.log).toHaveBeenCalledTimes(1);
   });
 
   test(`should fail with an unreachable service`, async () => {
@@ -148,6 +148,6 @@ describe("[Worker] checkers/checkJson()", () => {
     expect(lastCheckpoint.isUp).toStrictEqual(false);
     expect(lastCheckpoint.latency).toStrictEqual(-1);
     expect(lastCheckpoint.uri).toStrictEqual(service.uri);
-    expect(console.log).toHaveBeenCalled();
+    expect(console.log).toHaveBeenCalledTimes(1);
   });
 });

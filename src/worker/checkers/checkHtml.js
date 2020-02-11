@@ -42,8 +42,16 @@ async function checkWebsite({ uri, expectations }) {
         throw new Error(`The "${method}" method is not available for html services.`);
       }
 
-      const result = $(selector)[method]();
-      if (result !== value) isUp = false;
+      const result = $(selector)
+        [method]()
+        .trim();
+      if (result !== value) {
+        isUp = false;
+
+        log.warn(`Service: ${uri}`);
+        log.warn(`Expected: "${value}"`);
+        log.warn(`Received: "${result}"`);
+      }
     }
 
     const checkpoint = new Checkpoint({
