@@ -17,7 +17,8 @@
             },
             "uri": {
               "type": "string",
-              "minLength": 1
+              "minLength": 1,
+              "uniqueItems": true
             },
             "expectations": {
               "type": "array",
@@ -40,7 +41,8 @@
             },
             "uri": {
               "type": "string",
-              "minLength": 1
+              "minLength": 1,
+              "uniqueItems": true
             },
             "expectations": {
               "type": "array",
@@ -129,6 +131,15 @@
     "version": {
       "const": 1
     },
+    "webhooks": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "uniqueItems": true
+      },
+      "minItems": 1
+    },
     "services": {
       "type": "array",
       "items": { "$ref": "#/$defs/service" },
@@ -136,5 +147,5 @@
     }
   },
   "additionalProperties": false,
-  "required": ["version", "services"]
+  "required": ["version", "webhooks", "services"]
 }
