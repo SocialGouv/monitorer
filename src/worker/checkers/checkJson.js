@@ -39,18 +39,27 @@ async function checkHtml({ uri, expectations }) {
     if (data === undefined) throw new Error(`The data can't be processed.`);
 
     let isUp = true;
+    let result;
     for (const { method, selector, value } of expectations) {
       switch (method) {
         case "type":
-          if (R.type(data[selector]) !== value) isUp = false;
+          result = R.type(data[selector]);
           break;
 
         case "value":
-          if (data[selector] !== value) isUp = false;
+          result = data[selector];
           break;
 
         default:
           throw new Error(`The "${method}" method is not available for json services.`);
+      }
+
+      if (result !== value) {
+        isUp = false;
+
+        log.warn(`Service: ${uri}`);
+        log.warn(`Expected: "${value}"`);
+        log.warn(`Received: "${result}"`);
       }
     }
 
