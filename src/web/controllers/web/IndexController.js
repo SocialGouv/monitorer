@@ -1,5 +1,4 @@
 const log = require("@inspired-beings/log");
-
 const yaml = require("yaml");
 
 const Configuration = require("../../../shared/models/Configuration");

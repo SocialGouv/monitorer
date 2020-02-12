@@ -11,7 +11,7 @@ h2 {
 }
 
 .btn:focus {
-  box-shadow: none;
+  box-shadow: none !important;
 }
 
 .spinner {

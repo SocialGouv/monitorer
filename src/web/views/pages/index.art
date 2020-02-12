@@ -6,6 +6,29 @@
 
 {{ block 'content' }}
   {{ if services }}
+    <div class="d-flex justify-content-end mb-5">
+      <button
+        class="js-chartLengthButton btn btn-info mr-1"
+        data-value="1H"
+        type="button"
+      >
+        1 Hour
+      </button>
+      <button
+        class="js-chartLengthButton btn btn-info mr-1 active"
+        data-value="1D"
+        type="button"
+      >
+        1 Day
+      </button>
+      <button
+        class="js-chartLengthButton btn btn-info"
+        data-value="1W"
+        type="button"
+      >
+        1 Week
+      </button>
+    </div>
     {{ each services }}
       <h2 class="d-flex justify-content-between align-items-end">
         {{ $value.name }}
