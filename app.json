@@ -19,10 +19,6 @@
       "description": "Website administration username.",
       "value": "admin"
     },
-    "MONITORER_CRON": {
-      "description": "Uptime checking interval cron (see https://crontab.guru). Each minute by default.",
-      "value": "* * * * *"
-    },
     "MONITORER_TITLE": {
       "description": "The website title for your Monitorer instance.",
       "value": "Monitorer"

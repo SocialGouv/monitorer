@@ -1,8 +1,14 @@
 const log = require("@inspired-beings/log");
+const R = require("ramda");
 
+const cache = require("../../helpers/cache");
 const Checkpoint = require("../../../shared/models/Checkpoint");
 
-const NUMBER_OF_MINUTES_IN_A_DAY = 24 * 60;
+const LENGTH = {
+  "1D": { divider: 6, limit: 60 * 24 }, // => 240 checkpoints
+  "1H": { divider: 1, limit: 60 }, // => 60 checkpoints
+  "1W": { divider: 6 * 7, limit: 60 * 24 * 7 }, // => 240 checkpoints
+};
 
 class ApiCheckpointController {
   /**
@@ -14,7 +20,25 @@ class ApiCheckpointController {
    */
   async index(ctx) {
     try {
-      const { uri } = ctx.request.query;
+      const { length, uri } = ctx.request.query;
+
+      if (typeof length !== "string" || length.length === 0) {
+        ctx.body = {
+          errors: [{ message: "The `length` query parameter is mandatory." }],
+        };
+        ctx.status = 400;
+
+        return;
+      }
+
+      if (LENGTH[length] === undefined) {
+        ctx.body = {
+          errors: [{ message: "The `length` query parameter is mandatory." }],
+        };
+        ctx.status = 400;
+
+        return;
+      }
 
       if (typeof uri !== "string" || uri.length === 0) {
         ctx.body = {
@@ -25,9 +49,52 @@ class ApiCheckpointController {
         return;
       }
 
-      ctx.body = await Checkpoint.find({ uri })
+      const { divider, limit } = LENGTH[length];
+
+      // Cache
+      const cacheKey = `chekpoints-${uri}-${length}`;
+      const maybeCachedBody = cache.get(cacheKey);
+      if (maybeCachedBody !== undefined) {
+        ctx.body = maybeCachedBody;
+
+        return;
+      }
+
+      const rawCheckpoints = await Checkpoint.find({ uri })
         .sort({ date: -1 })
-        .limit(NUMBER_OF_MINUTES_IN_A_DAY);
+        .limit(limit);
+      const checkpoints = rawCheckpoints.map(({ date, isUp, latency }) => ({
+        date,
+        isUp,
+        latency,
+      }));
+
+      const aggregatedChekpoints =
+        divider === 1
+          ? checkpoints
+          : R.pipe(
+              R.splitEvery(divider),
+              R.map(checkpointsCluster => {
+                const aggregatedCheckpoint = R.reduce(
+                  (prev, checkpoint) => ({
+                    ...prev,
+                    isUp: prev.isUp && checkpoint.isUp,
+                    latency: prev.latency + checkpoint.latency,
+                  }),
+                  checkpointsCluster[0],
+                )(checkpointsCluster.slice(1));
+
+                return {
+                  ...aggregatedCheckpoint,
+                  latency: aggregatedCheckpoint.isUp
+                    ? Math.round(aggregatedCheckpoint.latency / divider)
+                    : 0,
+                };
+              }),
+            )(checkpoints);
+
+      cache.set(cacheKey, aggregatedChekpoints, 60);
+      ctx.body = aggregatedChekpoints;
     } catch (err) {
       log.err(`[web] [controllers/api/ApiCheckpointController#index()] Error: ${err.message}`);
 

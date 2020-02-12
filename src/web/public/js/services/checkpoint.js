@@ -1,3 +1,4 @@
+import api from "../libs/api.js";
 import axios from "../libs/axios.js";
 
 /**
@@ -16,14 +17,13 @@ class Checkpoint {
    * Get a list of checkpoints from the API.
    *
    * @param {string} uri
+   * @param {string=} length
    *
    * @returns {CheckpointModel[]}
    */
-  async index(uri) {
+  async index(uri, length = "1D") {
     try {
-      const { data } = await axios.get(`/checkpoints?uri=${uri}`);
-
-      return data;
+      return await api.get(`/checkpoints?length=${length}&uri=${uri}`);
     } catch (err) {
       console.error(`[server] [public/js/services/Checkpoint#index()] Error: ${err.message}`);
 

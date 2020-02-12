@@ -1,3 +1,4 @@
+import { EVENT } from "../constants.js";
 import checkpoint from "../services/checkpoint.js";
 
 export default class UptimeChart {
@@ -9,6 +10,7 @@ export default class UptimeChart {
   constructor($node) {
     try {
       this.data = [];
+      this.length = "1D";
       this.uri = $node.dataset.uri;
 
       this.chartJs = new Chart($node, {
@@ -67,9 +69,45 @@ export default class UptimeChart {
         type: "bar",
       });
 
+      this.bindEvents();
       this.update();
     } catch (err) {
       console.error(`[web] [public/js/components/UptimeChart()] Error: ${err.message}`);
+    }
+  }
+
+  /**
+   * Bind events.
+   *
+   * @returns {void}
+   */
+  bindEvents() {
+    try {
+      document.addEventListener(EVENT.UPDATE_CHART_LENGTH, this.updateLength.bind(this));
+    } catch (err) {
+      console.error(`[web] [public/js/components/UptimeChart#bindEvents()] Error: ${err.message}`);
+    }
+  }
+
+  /**
+   * Update chart length.
+   *
+   * @param {MouseEvent} event
+   *
+   * @returns {void}
+   */
+  async updateLength(event) {
+    try {
+      clearTimeout(this.timeout);
+
+      const { detail: length } = event;
+
+      this.length = length;
+      await this.update();
+    } catch (err) {
+      console.error(
+        `[web] [public/js/components/UptimeChart#updateLength()] Error: ${err.message}`,
+      );
     }
   }
 
@@ -80,7 +118,7 @@ export default class UptimeChart {
    */
   async update() {
     try {
-      const rawData = await checkpoint.index(this.uri);
+      const rawData = await checkpoint.index(this.uri, this.length);
       const data = rawData.map(({ date, isUp }) => ({ x: date, y: isUp ? 1 : -1 }));
 
       const newDataset = { ...this.chartJs.data.datasets[0] };
@@ -89,7 +127,7 @@ export default class UptimeChart {
       this.chartJs.data.datasets.push(newDataset);
       this.chartJs.update();
 
-      setTimeout(this.update.bind(this), 1000);
+      this.timeout = setTimeout(this.update.bind(this), 10000);
     } catch (err) {
       console.error(`[web] [public/js/components/UptimeChart#update()] Error: ${err.message}`);
     }

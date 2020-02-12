@@ -13,7 +13,7 @@ if (process.env.NODE_ENV !== "production") {
   dotenv.config({ path: path.join(__dirname, "../../.env") });
 }
 
-const { MONITORER_CRON } = process.env;
+const INTERVAL_CRON = "* * * * *";
 
 /**
  * Run the checking job for all listed services.
@@ -46,7 +46,7 @@ async function run() {
     await mongo.disconnect();
 
     // Start cron job:
-    new cron.CronJob(MONITORER_CRON, run, null, true);
+    new cron.CronJob(INTERVAL_CRON, run, null, true);
   } catch (err) {
     log.err(`[worker] Error: %s`, err.message || err);
   }
