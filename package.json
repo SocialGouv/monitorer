@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "@socialgouv/eslint-config-strict": "0.16.0",
+    "@types/axios": "0.14.0",
     "@types/chart.js": "2.9.13",
     "@types/codemirror": "0.0.84",
     "@types/jest": "25.1.2",

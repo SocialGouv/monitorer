@@ -24,10 +24,11 @@ const Checkpoint = require("../../shared/models/Checkpoint");
  *
  * @param {ServiceModel} service
  * @param {string[]} webhooks
+ * @param {number} timeout
  *
  * @returns {Promise<void>}
  */
-async function checkWebsite({ expectations, name, uri }, webhooks) {
+async function checkWebsite({ expectations, name, uri }, webhooks, timeout) {
   if (expectations.length === 0) return;
 
   let isUp = true;
@@ -36,7 +37,7 @@ async function checkWebsite({ expectations, name, uri }, webhooks) {
 
   try {
     try {
-      const { data } = await axios.get(uri);
+      const { data } = await axios.get(uri, { timeout });
       responseSource = data;
     } catch (err) {
       isUp = false;
@@ -76,7 +77,7 @@ async function checkWebsite({ expectations, name, uri }, webhooks) {
     });
     await newCheckpoint.save();
 
-    if (isUp !== lastCheckpoint.isUp) {
+    if (lastCheckpoint !== null && isUp !== lastCheckpoint.isUp) {
       webhooks.map(async webhook => {
         const message = !isUp && lastCheckpoint.isUp ? `${name} is down` : `${name} is up again`;
         await axios.post(webhook, {

@@ -8,6 +8,7 @@ title: Configuration
 
 ```yaml
 version: 1
+timeout: 15000
 
 webhooks:
   - https://example.com
@@ -41,6 +42,15 @@ This is the Monitorer configuration format version. For now, it must be `1`.
 
 ```yaml
 version: 1
+```
+
+### `timeout` [number]
+
+This is the maximum delay (in milliseconds) after which a service will be considered as down if it
+didn't respond. This value must be an integer between `1` and `30000`.
+
+```yaml
+timeout: 15000
 ```
 
 ### `webhooks` [array\<string>]

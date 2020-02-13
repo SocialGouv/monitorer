@@ -1,13 +1,12 @@
 const log = require("@inspired-beings/log");
-const R = require("ramda");
 
 const cache = require("../../helpers/cache");
 const Checkpoint = require("../../../shared/models/Checkpoint");
 
 const LENGTH = {
-  "1D": { divider: 6, limit: 60 * 24 }, // => 240 checkpoints
-  "1H": { divider: 1, limit: 60 }, // => 60 checkpoints
-  "1W": { divider: 6 * 7, limit: 60 * 24 * 7 }, // => 240 checkpoints
+  "1D": { limit: 60 * 24 }, // => 240 checkpoints (with divider)
+  "1H": { limit: 60 }, // => 60 checkpoints (with divider)
+  "1W": { limit: 60 * 24 * 7 }, // => 240 checkpoints (with divider)
 };
 
 class ApiCheckpointController {
@@ -49,7 +48,7 @@ class ApiCheckpointController {
         return;
       }
 
-      const { divider, limit } = LENGTH[length];
+      const { limit } = LENGTH[length];
 
       // Cache
       const cacheKey = `chekpoints-${uri}-${length}`;
@@ -69,32 +68,8 @@ class ApiCheckpointController {
         latency,
       }));
 
-      const aggregatedChekpoints =
-        divider === 1
-          ? checkpoints
-          : R.pipe(
-              R.splitEvery(divider),
-              R.map(checkpointsCluster => {
-                const aggregatedCheckpoint = R.reduce(
-                  (prev, checkpoint) => ({
-                    ...prev,
-                    isUp: prev.isUp && checkpoint.isUp,
-                    latency: prev.latency + checkpoint.latency,
-                  }),
-                  checkpointsCluster[0],
-                )(checkpointsCluster.slice(1));
-
-                return {
-                  ...aggregatedCheckpoint,
-                  latency: aggregatedCheckpoint.isUp
-                    ? Math.round(aggregatedCheckpoint.latency / divider)
-                    : 0,
-                };
-              }),
-            )(checkpoints);
-
-      cache.set(cacheKey, aggregatedChekpoints, 60);
-      ctx.body = aggregatedChekpoints;
+      cache.set(cacheKey, checkpoints, 1);
+      ctx.body = checkpoints;
     } catch (err) {
       log.err(`[web] [controllers/api/ApiCheckpointController#index()] Error: ${err.message}`);
 

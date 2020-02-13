@@ -1,5 +1,4 @@
 const axios = require("axios");
-const R = require("ramda");
 
 jest.mock("axios");
 
@@ -7,13 +6,11 @@ global.CHECKPOINTS = [];
 jest.mock("../../../shared/models/Checkpoint", () => {
   class Checkpoint {
     constructor(data) {
-      this.data = data;
+      if (data !== undefined) this.data = data;
     }
 
-    async findOne() {
-      global.CHECKPOINTS.push(this.data);
-
-      return Promise.resolve(this);
+    static findOne() {
+      return new Checkpoint();
     }
 
     async save() {
@@ -23,9 +20,9 @@ jest.mock("../../../shared/models/Checkpoint", () => {
     }
 
     async sort() {
-      global.CHECKPOINTS.push(this.data);
-
-      return Promise.resolve(this);
+      return Promise.resolve(
+        global.CHECKPOINTS.length === 0 ? null : global.CHECKPOINTS[global.CHECKPOINTS.length - 1],
+      );
     }
   }
 
@@ -34,9 +31,12 @@ jest.mock("../../../shared/models/Checkpoint", () => {
 
 const checkJson = require("../checkJson");
 
-// eslint-disable-next-line jest/no-disabled-tests
-describe.skip("[Worker] checkers/checkJson()", () => {
+const TIMEOUT = 15000;
+
+describe("[Worker] checkers/checkJson()", () => {
   beforeEach(() => {
+    global.CHECKPOINTS = [];
+
     jest.clearAllMocks();
   });
 
@@ -59,10 +59,11 @@ describe.skip("[Worker] checkers/checkJson()", () => {
     };
 
     const beforeDate = Date.now();
-    await checkJson(service);
+    await checkJson(service, [], TIMEOUT);
     const afterDate = Date.now();
 
-    const lastCheckpoint = R.last(global.CHECKPOINTS);
+    expect(global.CHECKPOINTS.length).toStrictEqual(1);
+    const lastCheckpoint = global.CHECKPOINTS[0];
     expect(lastCheckpoint.date).toBeGreaterThanOrEqual(beforeDate);
     expect(lastCheckpoint.date).toBeLessThanOrEqual(afterDate);
     expect(lastCheckpoint.isUp).toStrictEqual(true);
@@ -90,10 +91,11 @@ describe.skip("[Worker] checkers/checkJson()", () => {
     };
 
     const beforeDate = Date.now();
-    await checkJson(service);
+    await checkJson(service, [], TIMEOUT);
     const afterDate = Date.now();
 
-    const lastCheckpoint = R.last(global.CHECKPOINTS);
+    expect(global.CHECKPOINTS.length).toStrictEqual(1);
+    const lastCheckpoint = global.CHECKPOINTS[0];
     expect(lastCheckpoint.date).toBeGreaterThanOrEqual(beforeDate);
     expect(lastCheckpoint.date).toBeLessThanOrEqual(afterDate);
     expect(lastCheckpoint.isUp).toStrictEqual(false);
@@ -120,16 +122,9 @@ describe.skip("[Worker] checkers/checkJson()", () => {
       uri: "https://example.com",
     };
 
-    const beforeDate = Date.now();
-    await checkJson(service);
-    const afterDate = Date.now();
+    await checkJson(service, [], TIMEOUT);
 
-    const lastCheckpoint = R.last(global.CHECKPOINTS);
-    expect(lastCheckpoint.date).toBeGreaterThanOrEqual(beforeDate);
-    expect(lastCheckpoint.date).toBeLessThanOrEqual(afterDate);
-    expect(lastCheckpoint.isUp).toStrictEqual(false);
-    expect(lastCheckpoint.latency).toStrictEqual(0);
-    expect(lastCheckpoint.uri).toStrictEqual(service.uri);
+    expect(global.CHECKPOINTS.length).toStrictEqual(0);
     expect(console.log).toHaveBeenCalledTimes(1);
   });
 
@@ -143,7 +138,7 @@ describe.skip("[Worker] checkers/checkJson()", () => {
     const service = {
       expectations: [
         {
-          method: "unknown",
+          method: "type",
           selector: "version",
           value: "String",
         },
@@ -152,15 +147,16 @@ describe.skip("[Worker] checkers/checkJson()", () => {
     };
 
     const beforeDate = Date.now();
-    await checkJson(service);
+    await checkJson(service, [], TIMEOUT);
     const afterDate = Date.now();
 
-    const lastCheckpoint = R.last(global.CHECKPOINTS);
+    expect(global.CHECKPOINTS.length).toStrictEqual(1);
+    const lastCheckpoint = global.CHECKPOINTS[0];
     expect(lastCheckpoint.date).toBeGreaterThanOrEqual(beforeDate);
     expect(lastCheckpoint.date).toBeLessThanOrEqual(afterDate);
     expect(lastCheckpoint.isUp).toStrictEqual(false);
     expect(lastCheckpoint.latency).toStrictEqual(0);
     expect(lastCheckpoint.uri).toStrictEqual(service.uri);
-    expect(console.log).toHaveBeenCalledTimes(1);
+    expect(console.log).toHaveBeenCalledTimes(2);
   });
 });

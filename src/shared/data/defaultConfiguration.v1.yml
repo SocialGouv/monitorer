@@ -1,6 +1,10 @@
 # Monitorer configuration version:
 version: 1
 
+# Timeout (in ms):
+# A service will be considered as down if this timeout is reached. 0 = no timeout.
+timeout: 15000
+
 webhooks:
   - https://example.com
 

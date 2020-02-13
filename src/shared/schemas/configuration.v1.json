@@ -131,6 +131,11 @@
     "version": {
       "const": 1
     },
+    "timeout": {
+      "type": "integer",
+      "maximum": 30000,
+      "minimum": 1
+    },
     "webhooks": {
       "type": "array",
       "items": {
@@ -147,5 +152,5 @@
     }
   },
   "additionalProperties": false,
-  "required": ["version", "webhooks", "services"]
+  "required": ["version", "timeout", "webhooks", "services"]
 }
