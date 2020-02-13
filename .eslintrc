@@ -28,7 +28,7 @@
 
     "sort-requires/sort-requires": "error"
   },
-  "ignorePatterns": ["src/web/public/js/vendors/**/*.js"],
+  "ignorePatterns": ["src/web/public/js/vendors/**/*.js", "website/"],
   "overrides": [
     {
       "files": ["src/web/public/js/**/*.js"],

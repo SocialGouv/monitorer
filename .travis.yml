@@ -4,11 +4,14 @@ node_js:
 
 cache:
   yarn: true
+  directories:
+    - nodes_modules
+    - website/nodes_modules
 
 stages:
   - Test
   - name: Release
-    if: repo = "SocialGouv/monitorer" AND tag IS present
+    if: repo = "SocialGouv/monitorer"
 
 before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.22.0
@@ -23,8 +26,14 @@ jobs:
       after_script:
         - npx codecov
 
+    - stage: Test
+      name: Website
+      before_install:
+        - cd website
+
     - stage: Release
       name: Github Release
+      if: tag IS present
       script: skip
       before_deploy:
         - yarn ci:generate:release_notes
@@ -34,9 +43,17 @@ jobs:
         edge:
           branch: master
         release_notes_file: ./RELEASE_NOTES.md
-        on:
-          repo: SocialGouv/monitorer
-          tags: true
+
+    - stage: Release
+      name: Github Pages
+      if: branch = "master" AND type != "pull_request"
+      before_install:
+        - cd website
+      script:
+        - git config --global user.name "${GITHUB_NAME}"
+        - git config --global user.email "${GITHUB_EMAIL}"
+        - echo "machine github.com login ${GITHUB_NAME} password ${GITHUB_TOKEN}" > ~/.netrc
+        - GIT_USER="${GITHUB_NAME}" yarn publish-gh-pages
 
 # Limit branches builds to "master" & "develop" ones:
 branches:

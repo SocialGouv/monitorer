@@ -5,7 +5,7 @@
 [![Build Status][img-travis]][link-travis]
 [![Code Coverage][img-codecov]][link-codecov]
 
-A deploy-in-one-click web services uptime monitorer. In pure JS.
+A deploy-in-one-click web services uptime monitor. In pure JS.
 
 ## Example
 

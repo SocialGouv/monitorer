@@ -1,0 +1,21 @@
+{
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "docusaurus-build",
+    "examples": "docusaurus-examples",
+    "publish-gh-pages": "docusaurus-publish",
+    "rename-version": "docusaurus-rename-version",
+    "start": "docusaurus-start",
+    "test": "yarn test:lint",
+    "test:lint": "eslint .",
+    "version": "docusaurus-version",
+    "write-translations": "docusaurus-write-translations"
+  },
+  "devDependencies": {
+    "@socialgouv/eslint-config-react-strict": "0.16.0",
+    "docusaurus": "1.14.4",
+    "eslint": "6.8.0",
+    "eslint-config-prettier": "6.10.0",
+    "eslint-plugin-prettier": "3.1.2"
+  }
+}

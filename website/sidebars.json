@@ -1,0 +1,6 @@
+{
+  "docs": {
+    "Documentation": ["getting-started", "heroku"],
+    "References": ["configuration"]
+  }
+}

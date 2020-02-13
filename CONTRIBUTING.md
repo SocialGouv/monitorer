@@ -63,6 +63,7 @@ Replace the template URL by your Github branch.
   "editor.formatOnSave": true,
   "editor.rulers": [100],
   "eslint.enable": true,
+  "eslint.workingDirectories": ["./", "./website"],
   "javascript.format.enable": false,
   "typescript.format.enable": false
 }
