@@ -75,31 +75,26 @@ async function checkHtml({ expectations, name, uri }, webhooks) {
       }
     }
 
-    const checkpoint = new Checkpoint({
+    const lastCheckpoint = await Checkpoint.findOne({ uri }).sort({ date: -1 });
+    const newCheckpoint = new Checkpoint({
       date,
       isUp,
       latency: isUp ? latency : 0,
       uri,
     });
-    await checkpoint.save();
+    await newCheckpoint.save();
 
-    const lastCheckpoint = await Checkpoint.findOne({ uri }).sort({ date: -1 });
     if (isUp !== lastCheckpoint.isUp) {
-      await Promise.all(
-        webhooks.map(async webhook => {
-          if (!isUp && lastCheckpoint.isUp) {
-            await axios.post(webhook, {
-              message: `${name} is down`,
-              uri,
-            });
-          } else {
-            await axios.post(webhook, {
-              message: `${name} is up again`,
-              uri,
-            });
-          }
-        }),
-      );
+      webhooks.map(async webhook => {
+        const message = !isUp && lastCheckpoint.isUp ? `${name} is down` : `${name} is up again`;
+        await axios.post(webhook, {
+          message,
+          uri,
+        });
+
+        log.warn(`Webhook: ${webhook}`);
+        log.warn(`Message: ${message}`);
+      });
     }
   } catch (err) {
     log.err(`[worker] [checkers/checkJson()] [${uri}] Error: %s`, err.message || err);
