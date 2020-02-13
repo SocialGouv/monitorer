@@ -49,11 +49,12 @@ async function checkWebsite({ expectations, name, uri }, webhooks) {
     if (isUp) {
       const $ = cheerio.load(responseSource);
       for (const { method, selector, value } of expectations) {
-        if (typeof $(selector)[method] !== "function") {
+        if (typeof $(selector).first()[method] !== "function") {
           throw new Error(`The "${method}" method is not available for html services.`);
         }
 
         const result = $(selector)
+          .first()
           [method]()
           .trim();
         if (result !== value) {
