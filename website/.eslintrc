@@ -1,0 +1,8 @@
+{
+  "root": true,
+  "extends": ["@socialgouv/eslint-config-react-strict", "prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "react/prop-types": "off"
+  }
+}

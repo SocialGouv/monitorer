@@ -1,7 +1,7 @@
 {
   "name": "@socialgouv/monitorer",
   "version": "1.0.0-alpha.8",
-  "description": "A deploy-in-one-click web services uptime monitorer.",
+  "description": "A deploy-in-one-click web services uptime monitor.",
   "license": "Apache-2.0",
   "private": true,
   "scripts": {

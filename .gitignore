@@ -182,6 +182,19 @@ $RECYCLE.BIN/
 .history
 
 ########################################
+# Docusaurus
+# https://docusaurus.io/docs/en/installation
+
+# lib/core/metadata.js
+# lib/core/MetadataBlog.js
+
+/website/translated_docs
+/website/build/
+# /website/yarn.lock
+/website/node_modules
+/website/i18n/*
+
+########################################
 # Custom
 
 /build
