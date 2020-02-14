@@ -16,14 +16,13 @@ class Checkpoint {
   /**
    * Get a list of checkpoints from the API.
    *
-   * @param {string} uri
-   * @param {string=} length
+   * @param {string} duration
    *
-   * @returns {CheckpointModel[]}
+   * @returns {Promise<CheckpointModel[]>}
    */
-  async index(uri, length = "1D") {
+  async index(duration) {
     try {
-      return await api.get(`/checkpoints?length=${length}&uri=${uri}`);
+      return await api.get(`/checkpoints?duration=${duration}`);
     } catch (err) {
       console.error(`[server] [public/js/services/Checkpoint#index()] Error: ${err.message}`);
 
@@ -37,7 +36,7 @@ class Checkpoint {
    * @param {string} uri
    * @param {Date} until
    *
-   * @returns {CheckpointModel[]}
+   * @returns {Promise<void>}
    */
   async delete(uri, until) {
     if (until === undefined) {

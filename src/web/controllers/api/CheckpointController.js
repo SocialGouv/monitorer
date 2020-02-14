@@ -3,10 +3,10 @@ const log = require("@inspired-beings/log");
 const cache = require("../../helpers/cache");
 const Checkpoint = require("../../../shared/models/Checkpoint");
 
-const LENGTH = {
-  "1D": { limit: 60 * 24 }, // => 240 checkpoints (with divider)
-  "1H": { limit: 60 }, // => 60 checkpoints (with divider)
-  "1W": { limit: 60 * 24 * 7 }, // => 240 checkpoints (with divider)
+const DURATION = {
+  ONE_DAY: { inMs: 1000 * 60 * 60 * 24 }, // => 240 checkpoints (with divider)
+  ONE_HOUR: { inMs: 1000 * 60 * 60 }, // => 60 checkpoints (with divider)
+  ONE_WEEK: { inMs: 1000 * 60 * 60 * 24 * 7 }, // => 240 checkpoints (with divider)
 };
 
 class ApiCheckpointController {
@@ -19,39 +19,34 @@ class ApiCheckpointController {
    */
   async index(ctx) {
     try {
-      const { length, uri } = ctx.request.query;
+      const { duration } = ctx.request.query;
 
-      if (typeof length !== "string" || length.length === 0) {
+      if (typeof duration !== "string" || duration.length === 0) {
         ctx.body = {
-          errors: [{ message: "The `length` query parameter is mandatory." }],
+          errors: [{ message: "The `duration` query parameter is mandatory." }],
         };
         ctx.status = 400;
 
         return;
       }
 
-      if (LENGTH[length] === undefined) {
+      if (DURATION[duration] === undefined) {
         ctx.body = {
-          errors: [{ message: "The `length` query parameter is mandatory." }],
+          errors: [
+            {
+              message: `The \`duration\` query parameter must be one of: ${Object.keys(
+                DURATION,
+              ).join(", ")}.`,
+            },
+          ],
         };
         ctx.status = 400;
 
         return;
       }
-
-      if (typeof uri !== "string" || uri.length === 0) {
-        ctx.body = {
-          errors: [{ message: "The `uri` query parameter is mandatory." }],
-        };
-        ctx.status = 400;
-
-        return;
-      }
-
-      const { limit } = LENGTH[length];
 
       // Cache
-      const cacheKey = `chekpoints-${uri}-${length}`;
+      const cacheKey = `chekpoints-${duration}`;
       const maybeCachedBody = cache.get(cacheKey);
       if (maybeCachedBody !== undefined) {
         ctx.body = maybeCachedBody;
@@ -59,13 +54,15 @@ class ApiCheckpointController {
         return;
       }
 
-      const rawCheckpoints = await Checkpoint.find({ uri })
-        .sort({ date: -1 })
-        .limit(limit);
-      const checkpoints = rawCheckpoints.map(({ date, isUp, latency }) => ({
+      const from = Date.now() - DURATION[duration].inMs;
+      const rawCheckpoints = await Checkpoint.find({
+        date: { $gt: from },
+      }).sort({ date: -1 });
+      const checkpoints = rawCheckpoints.map(({ date, isUp, latency, uri }) => ({
         date,
         isUp,
         latency,
+        uri,
       }));
 
       cache.set(cacheKey, checkpoints, 1);

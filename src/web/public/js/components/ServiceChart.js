@@ -1,19 +1,36 @@
-import { CHART_LENGTH, EVENT } from "../constants.js";
-import checkpoint from "../services/checkpoint.js";
+import { EVENT } from "../constants.js";
 
-const CHART_LENGTH_DIVIDER = {
-  "1D": 6, // => 240 checkpoints
-  "1H": 1, // => 60 checkpoints
-  "1W": 6 * 7, // => 240 checkpoints
+const CHART_TICKS = [
+  0,
+  100,
+  150,
+  200,
+  250,
+  300,
+  400,
+  500,
+  1000,
+  1500,
+  2000,
+  2500,
+  3000,
+  4000,
+  5000,
+  10000,
+  15000,
+];
+const DURATION_CHART_TIME_UNIT = {
+  ONE_DAY: "hour",
+  ONE_HOUR: "minute",
+  ONE_WEEK: "day",
 };
-const CHART_TICKS = [0, 150, 1500, 15000];
-const CHART_TIME_UNIT = {
-  "1D": "hour",
-  "1H": "minute",
-  "1W": "day",
+const DURATION_DIVIDER = {
+  ONE_DAY: 6, // => 240 checkpoints
+  ONE_HOUR: 1, // => 60 checkpoints
+  ONE_WEEK: 6 * 7, // => 240 checkpoints
 };
 
-export default class Chart {
+export default class ServiceChart {
   /**
    * Configuration editor component.
    *
@@ -21,10 +38,7 @@ export default class Chart {
    */
   constructor($node) {
     try {
-      const defaultLength = CHART_LENGTH["1D"];
-
-      this.data = [];
-      this.length = defaultLength;
+      /** @type {string} */
       this.uri = $node.dataset.uri;
 
       /** @type {import("chart.js").Chart} */
@@ -47,6 +61,7 @@ export default class Chart {
             // Disable animations:
             duration: 0,
           },
+          aspectRatio: 3,
           elements: {
             line: {
               // Disable Bezier curves:
@@ -61,11 +76,15 @@ export default class Chart {
               {
                 distribution: "linear",
                 labelString: "Date",
+                ticks: {
+                  autoSkip: true,
+                  autoSkipPadding: 16,
+                  maxRotation: 0,
+                },
                 time: {
                   displayFormats: {
                     minute: "HH:mm",
                   },
-                  time: CHART_TIME_UNIT[defaultLength],
                 },
                 type: "time",
               },
@@ -79,8 +98,6 @@ export default class Chart {
                   callback: function(value) {
                     return value < 1000 ? `${value}ms` : `${value / 1000}s`;
                   },
-                  max: CHART_TICKS[CHART_TICKS.length - 1],
-                  // min: CHART_TICKS[0],
                 },
                 type: "logarithmic",
               },
@@ -94,9 +111,8 @@ export default class Chart {
       });
 
       this.bindEvents();
-      this.update();
     } catch (err) {
-      console.error(`[web] [public/js/components/Chart()] Error: ${err.message}`);
+      console.error(`[web] [public/js/components/ServiceChart()] Error: ${err.message}`);
     }
   }
 
@@ -107,55 +123,33 @@ export default class Chart {
    */
   bindEvents() {
     try {
-      document.addEventListener(EVENT.UPDATE_CHART_LENGTH, this.updateLength.bind(this));
+      document.addEventListener(EVENT.UPDATE_CHECKPOINTS, this.update.bind(this));
     } catch (err) {
-      console.error(`[web] [public/js/components/Chart#bindEvents()] Error: ${err.message}`);
-    }
-  }
-
-  /**
-   * Update chart length.
-   *
-   * @param {MouseEvent} event
-   *
-   * @returns {void}
-   */
-  async updateLength(event) {
-    try {
-      clearTimeout(this.timeout);
-
-      const { detail: length } = event;
-
-      this.length = length;
-      this.chartJs.options.scales.xAxes[0].time.unit = CHART_TIME_UNIT[length];
-      await this.update(true);
-    } catch (err) {
-      console.error(`[web] [public/js/components/Chart#updateLength()] Error: ${err.message}`);
+      console.error(`[web] [public/js/components/ServiceChart#bindEvents()] Error: ${err.message}`);
     }
   }
 
   /**
    * Update chart data.
    *
-   * @param {boolean=} isForced
+   * @param {Event} event
    *
    * @returns {Promise<void>}
    */
-  async update(isForced = false) {
+  async update(event) {
     try {
-      const checkpoints = await checkpoint.index(this.uri, this.length);
-      if (checkpoints.length !== 0) {
-        if (!isForced && checkpoints[0].date === this.lastCheckpointDate) return;
-        this.lastCheckpointDate = checkpoints[0].date;
-      }
+      const {
+        detail: { checkpoints, duration },
+      } = event;
 
-      const aggregatedCheckpoints = this.aggregate(checkpoints);
+      this.duration = duration;
+
+      const filteredCheckpoints = checkpoints.filter(({ uri }) => uri === this.uri);
+      const aggregatedCheckpoints = this.aggregate(filteredCheckpoints);
       this.data = aggregatedCheckpoints.map(({ date, latency }) => ({ x: date, y: latency }));
       this.render();
-
-      this.timeout = setTimeout(this.update.bind(this), 1000);
     } catch (err) {
-      console.error(`[web] [public/js/components/Chart#update()] Error: ${err.message}`);
+      console.error(`[web] [public/js/components/ServiceChart#update()] Error: ${err.message}`);
     }
   }
 
@@ -166,19 +160,22 @@ export default class Chart {
    */
   render() {
     try {
+      this.chartJs.options.scales.xAxes[0].time.unit = DURATION_CHART_TIME_UNIT[this.duration];
+
       const newLatencyDataset = { ...this.chartJs.data.datasets[0] };
       newLatencyDataset.data = this.data;
       this.chartJs.data.datasets.pop();
       this.chartJs.data.datasets.push(newLatencyDataset);
+
       this.chartJs.update();
     } catch (err) {
-      console.error(`[web] [public/js/components/Chart#render()] Error: ${err.message}`);
+      console.error(`[web] [public/js/components/ServiceChart#render()] Error: ${err.message}`);
     }
   }
 
   aggregate(checkpoints) {
     try {
-      const divider = CHART_LENGTH_DIVIDER[this.length];
+      const divider = DURATION_DIVIDER[this.duration];
 
       return divider === 1
         ? checkpoints
@@ -203,7 +200,7 @@ export default class Chart {
             }),
           )(checkpoints);
     } catch (err) {
-      console.error(`[web] [public/js/components/Chart#aggregate()] Error: ${err.message}`);
+      console.error(`[web] [public/js/components/ServiceChart#aggregate()] Error: ${err.message}`);
     }
   }
 }
