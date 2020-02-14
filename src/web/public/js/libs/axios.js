@@ -1,9 +1,7 @@
-/* global axios */
-
 /**
  * @type {import("axios").AxiosInstance}
  */
-const axiosInstance = axios.create({
+const axiosInstance = window.axios.create({
   baseURL: "/api",
   headers: {
     Accept: "application/json",

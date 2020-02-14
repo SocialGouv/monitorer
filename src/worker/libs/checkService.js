@@ -23,16 +23,19 @@ const checkJson = require("../checkers/checkJson");
  *
  * @param {ServiceModel} service
  * @param {string[]} webhooks
+ * @param {number} timeout
+ *
+ * @returns {Promise<void>}
  */
-async function checkService(service, webhooks) {
+async function checkService(service, webhooks, timeout) {
   try {
     switch (service.type) {
       case "html":
-        await checkHtml(service, webhooks);
+        await checkHtml(service, webhooks, timeout);
         break;
 
       case "json":
-        await checkJson(service, webhooks);
+        await checkJson(service, webhooks, timeout);
         break;
 
       default:

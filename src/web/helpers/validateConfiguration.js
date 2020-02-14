@@ -1,6 +1,5 @@
 const Ajv = require("ajv");
 const log = require("@inspired-beings/log");
-const R = require("ramda");
 const yaml = require("yaml");
 
 const SCHEMA = {
@@ -18,16 +17,16 @@ function validateConfiguration(source) {
   try {
     const configuration = yaml.parse(source);
 
-    const version = configuration.version;
-    if (R.type(version) === "Undefined") {
+    const { version } = configuration;
+    if (version === undefined) {
       return [false, [{ message: `The configuration version is undefined.` }]];
     }
-    if (R.type(version) !== "Number") {
+    if (typeof version !== "number") {
       return [false, [{ message: `The configuration version is not a number.` }]];
     }
 
     const schema = SCHEMA[version];
-    if (R.type(schema) === "Undefined") {
+    if (schema === undefined) {
       return [false, [{ message: `This configuration version is not supported.` }]];
     }
 

@@ -34,9 +34,9 @@
         {{ $value.name }}
         <small class="subtitle-small text-monospace text-muted">{{ $value.uri }}</small>
       </h2>
-      <div class="d-flex justify-content-between mt-1 mb-5">
-        <canvas class="js-uptimeChart chart" data-uri="{{ $value.uri }}"></canvas>
-        <canvas class="js-latencyChart chart" data-uri="{{ $value.uri }}"></canvas>
+      <div class="d-flex justify-content-between">
+        <div class="js-log d-flex flex-column" data-uri="{{ $value.uri }}"></div>
+        <canvas class="js-chart chart" data-uri="{{ $value.uri }}"></canvas>
       </div>
     {{ /each }}
   {{ else }}
@@ -49,5 +49,7 @@
 
 {{ block 'scripts' }}
   <script defer src="/js/vendors/chart-2.9.3.bundle.min.js"></script>
+  <script defer src="/js/vendors/moment-2.24.0.min.js"></script>
+  <script defer src="/js/vendors/ramda-0.27.0.min.js"></script>
   <script defer src="/js/index.js" type="module"></script>
 {{ /block }}
