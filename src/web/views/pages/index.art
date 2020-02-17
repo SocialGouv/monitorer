@@ -6,39 +6,47 @@
 
 {{ block 'content' }}
   {{ if services }}
-    <div class="d-flex justify-content-end mb-5">
-      <button
-        class="js-chartLengthButton btn btn-info mr-1"
-        data-value="1H"
-        type="button"
-      >
-        1 Hour
-      </button>
-      <button
-        class="js-chartLengthButton btn btn-info mr-1 active"
-        data-value="1D"
-        type="button"
-      >
-        1 Day
-      </button>
-      <button
-        class="js-chartLengthButton btn btn-info"
-        data-value="1W"
-        type="button"
-      >
-        1 Week
-      </button>
-    </div>
-    {{ each services }}
-      <h2 class="d-flex justify-content-between align-items-end">
-        {{ $value.name }}
-        <small class="subtitle-small text-monospace text-muted">{{ $value.uri }}</small>
-      </h2>
-      <div class="d-flex justify-content-between">
-        <div class="js-log d-flex flex-column" data-uri="{{ $value.uri }}"></div>
-        <canvas class="js-chart chart" data-uri="{{ $value.uri }}"></canvas>
+    <div class="js-dashboard">
+      <div class="d-flex justify-content-end mb-4">
+        <button
+          class="js-durationButton btn btn-info mr-1"
+          data-duration="ONE_HOUR"
+          type="button"
+        >
+          1 Hour
+        </button>
+        <button
+          class="js-durationButton btn btn-info mr-1 active"
+          data-duration="ONE_DAY"
+          type="button"
+        >
+          1 Day
+        </button>
+        <button
+          class="js-durationButton btn btn-info"
+          data-duration="ONE_WEEK"
+          type="button"
+        >
+          1 Week
+        </button>
       </div>
-    {{ /each }}
+      {{ each services }}
+        <h2
+          class="js-serviceTitle d-flex justify-content-between align-items-end"
+          data-uri="{{ $value.uri }}"
+        >
+          <span>
+            <span class="js-serviceTitle-badge serviceTitle-badge badge badge-success"></span>
+            {{ $value.name }}
+          </span>
+          <small class="subtitle-small text-monospace text-muted">{{ $value.uri }}</small>
+        </h2>
+        <div class="d-flex justify-content-between mb-4">
+          <canvas class="js-serviceChart serviceChart" data-uri="{{ $value.uri }}"></canvas>
+          <div class="js-serviceLog serviceLog" data-uri="{{ $value.uri }}"></div>
+        </div>
+      {{ /each }}
+    </div>
   {{ else }}
     <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
       <div class="spinner bg-primary"></div>

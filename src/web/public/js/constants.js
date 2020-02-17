@@ -1,11 +1,12 @@
-export const CHART_LENGTH = {
-  "1D": "1D",
-  "1H": "1H",
-  "1W": "1W",
+export const DURATION = {
+  ONE_DAY: "ONE_DAY",
+  ONE_HOUR: "ONE_DAY",
+  ONE_WEEK: "ONE_DAY",
 };
 
 export const EVENT = {
-  UPDATE_CHART_LENGTH: "UPDATE_CHART_LENGTH",
+  UPDATE_CHECKPOINTS: "UPDATE_CHECKPOINTS",
+  UPDATE_DURATION: "UPDATE_DURATION",
 };
 
 export const SERVICE_TYPE = {

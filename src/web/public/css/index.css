@@ -1,5 +1,17 @@
-.chart {
-  width: 30rem;
-  max-width: 30rem;
-  min-width: 30rem;
+.serviceTitle-badge {
+  font-size: 13px;
+  vertical-align: 6px;
+}
+
+.serviceLog {
+  margin-left: 2rem;
+  flex-grow: 1;
+  line-height: 1.25;
+  min-height: 9.25rem;
+  margin-top: 0.5rem;
+  max-height: 9.25rem;
+  overflow-y: auto;
+}
+.serviceChart {
+  max-width: 50%;
 }

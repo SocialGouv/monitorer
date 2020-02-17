@@ -31,8 +31,11 @@ export default class Configuration {
           this.$editor.parentNode.replaceChild($codeMirrorEditor, this.$editor);
         },
         {
+          keyMap: "sublime",
           lineNumbers: true,
           mode: "yaml",
+          selfContain: true,
+          tabSize: 2,
           theme: "ayu-dark",
           value: this.$editor.value,
         },
