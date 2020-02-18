@@ -3,8 +3,15 @@
     <meta charset="utf-8" />
     <title>{{ $imports.meta.title }}</title>
 
+    {{ if metas }}
+      {{ each metas }}
+        <meta name="{{ $value.name }}" content="{{ $value.value }}">
+      {{ /each }}
+    {{ /if }}
+
     <link href="/css/vendors/bootswatch-4.4.1.pulse.min.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
+
     {{ block 'styles' }}{{ /block }}
   </head>
   <body class="d-flex flex-column">

@@ -1,5 +1,6 @@
 const log = require("@inspired-beings/log");
 
+const answerWithErrors = require("../../helpers/answerWithErrors");
 const Configuration = require("../../../shared/models/Configuration");
 const validateConfiguration = require("../../helpers/validateConfiguration");
 
@@ -19,7 +20,7 @@ class ApiConfigurationController {
     } catch (err) {
       log.err(`[web] [controllers/api/ApiConfigurationController#get()] Error: ${err.message}`);
 
-      ctx.status = 400;
+      answerWithErrors(ctx, ["Please check the server logs for this error."]);
     }
   }
 
@@ -68,7 +69,7 @@ class ApiConfigurationController {
     } catch (err) {
       log.err(`[web] [controllers/api/ApiConfigurationController#update()] Error: ${err.message}`);
 
-      ctx.status = 400;
+      answerWithErrors(ctx, ["Please check the server logs for this error."]);
     }
   }
 }

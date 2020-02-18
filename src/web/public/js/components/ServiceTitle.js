@@ -1,4 +1,5 @@
 import { EVENT } from "../constants.js";
+import checkpointService from "../services/checkpoint.js";
 
 export default class ServiceTitle {
   /**
@@ -15,6 +16,8 @@ export default class ServiceTitle {
       /** @type {string} */
       this.uri = $node.dataset.uri;
 
+      this.update = this.update.bind(this);
+
       this.bindEvents();
     } catch (err) {
       console.error(`[web] [public/js/components/ServiceTitle()] Error: ${err.message}`);
@@ -28,14 +31,14 @@ export default class ServiceTitle {
    */
   bindEvents() {
     try {
-      document.addEventListener(EVENT.UPDATE_CHECKPOINTS, this.update.bind(this));
+      document.addEventListener(EVENT.UPDATE_CHECKPOINTS, this.update);
     } catch (err) {
       console.error(`[web] [public/js/components/ServiceTitle#bindEvents()] Error: ${err.message}`);
     }
   }
 
   /**
-   * Update log data.
+   * Update title.
    *
    * @param {Event} event
    *
@@ -43,13 +46,14 @@ export default class ServiceTitle {
    */
   async update(event) {
     try {
-      const {
-        detail: { checkpoints },
-      } = event;
+      const detail = { ...event.detail };
+      const { uri } = detail;
 
-      const filteredCheckpoints = checkpoints.filter(({ uri }) => uri === this.uri);
-      const lastCheckpoint = filteredCheckpoints[0];
-      this.isUp = lastCheckpoint.isUp;
+      // Skip if it's not for this uri:
+      if (uri !== this.uri) return;
+
+      const latestCheckpoint = await checkpointService.latest(this.uri);
+      this.isUp = latestCheckpoint.latency > 0;
 
       this.render();
     } catch (err) {

@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "ci:generate:release_notes": "node ./scripts/ci/generate_release_notes.js",
-    "dev": "yarn dev:docker && concurrently \"yarn dev:worker\" \"yarn dev:web\"",
+    "dev": "yarn dev:docker && yarn dev:data && concurrently \"yarn dev:worker\" \"yarn dev:web\"",
+    "dev:data": "node ./scripts/dev/fill_data.js",
     "dev:docker": "docker-compose start db",
     "dev:web": "nodemon --watch ./src/shared --watch ./src/web ./src/web",
     "dev:worker": "nodemon --watch ./src/shared --watch ./src/worker ./src/worker",
@@ -59,6 +60,7 @@
     "jest": "25.1.0",
     "keep-a-changelog": "0.10.0",
     "nodemon": "2.0.2",
+    "ora": "4.0.3",
     "prettier": "1.19.1",
     "rimraf": "3.0.2",
     "shelljs": "0.8.3"

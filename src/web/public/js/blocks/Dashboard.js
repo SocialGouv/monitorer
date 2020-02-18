@@ -2,15 +2,16 @@ import ServiceChart from "../components/ServiceChart.js";
 import ServiceLog from "../components/ServiceLog.js";
 import ServiceTitle from "../components/ServiceTitle.js";
 import { DURATION, EVENT } from "../constants.js";
-import checkpoint from "../services/checkpoint.js";
+import checkpointService from "../services/checkpoint.js";
 
 export default class Dashboard {
   /**
    * Configuration editor component.
    *
    * @param {Element} $node
+   * @param {object} metas
    */
-  constructor($node) {
+  constructor($node, metas) {
     try {
       this.$node = $node;
       this.$durationButtons = [...$node.querySelectorAll(".js-durationButton")];
@@ -19,8 +20,14 @@ export default class Dashboard {
       this.$serviceTitles = [...$node.querySelectorAll(".js-serviceTitle")];
 
       this.duration = DURATION.ONE_DAY;
+      /** @type {string[]} */
+      this.serviceUris = metas.serviceUris;
       /** @type {number | null} */
       this.timeout = null;
+
+      this.update = this.update.bind(this);
+      this.updateDuration = this.updateDuration.bind(this);
+      this.updateService = this.updateService.bind(this);
 
       this.bindEvents();
       this.render();
@@ -38,7 +45,7 @@ export default class Dashboard {
   bindEvents() {
     try {
       this.$durationButtons.forEach($durationButton =>
-        $durationButton.addEventListener("click", this.updateDuration.bind(this)),
+        $durationButton.addEventListener("click", this.updateDuration),
       );
     } catch (err) {
       console.error(`[web] [public/js/components/Dashboard#bindEvents()] Error: ${err.message}`);
@@ -80,25 +87,39 @@ export default class Dashboard {
    */
   async update(isForced = false) {
     try {
-      const checkpoints = await checkpoint.index(this.duration);
-      if (checkpoints.length !== 0) {
-        if (!isForced && checkpoints[0].date === this.lastCheckpointDate) {
-          this.timeout = window.setTimeout(this.update.bind(this), 1000);
+      const lastCheckpoint = await checkpointService.latest();
+      if (!isForced && lastCheckpoint.date === this.lastCheckpointDate) {
+        this.timeout = window.setTimeout(this.update, 1000);
 
-          return;
-        }
-
-        this.lastCheckpointDate = checkpoints[0].date;
+        return;
       }
+      this.lastCheckpointDate = lastCheckpoint.date;
 
-      const customEvent = new CustomEvent(EVENT.UPDATE_CHECKPOINTS, {
-        detail: { checkpoints, duration: this.duration },
-      });
-      document.dispatchEvent(customEvent);
+      this.serviceUris.forEach(this.updateService);
 
-      this.timeout = window.setTimeout(this.update.bind(this), 1000);
+      this.timeout = window.setTimeout(this.update, 1000);
     } catch (err) {
       console.error(`[web] [public/js/components/Dashboard#update()] Error: ${err.message}`);
+    }
+  }
+
+  /**
+   * Update service data for a specific URI.
+   *
+   * @param {string} uri
+   *
+   * @returns {Promise<void>}
+   */
+  async updateService(uri) {
+    try {
+      const checkpoints = await checkpointService.index(uri, this.duration);
+
+      const customEvent = new CustomEvent(EVENT.UPDATE_CHECKPOINTS, {
+        detail: { checkpoints, duration: this.duration, uri },
+      });
+      document.dispatchEvent(customEvent);
+    } catch (err) {
+      console.error(`[web] [public/js/components/Dashboard#updateService()] Error: ${err.message}`);
     }
   }
 

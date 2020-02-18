@@ -39,8 +39,7 @@
       "globals": {
         "Chart": "readonly",
         "CodeMirror": "readonly",
-        "moment": "readonly",
-        "R": "readonly"
+        "moment": "readonly"
       }
     },
     {

@@ -9,7 +9,9 @@ jest.mock("../../../shared/models/Checkpoint", () => {
       if (data !== undefined) this.data = data;
     }
 
-    static findOne() {
+    static findOne({ date, uri }) {
+      if (date !== undefined && uri !== undefined) return Promise.resolve(null);
+
       return new Checkpoint();
     }
 
@@ -58,14 +60,16 @@ describe("[Worker] checkers/checkJson()", () => {
       uri: "https://example.com",
     };
 
-    const beforeDate = Date.now();
+    const beforeDate = new Date();
+    beforeDate.setSeconds(0, 0);
     await checkJson(service, [], TIMEOUT);
-    const afterDate = Date.now();
+    const afterDate = new Date();
+    afterDate.setSeconds(0, 0);
 
     expect(global.CHECKPOINTS.length).toStrictEqual(1);
     const lastCheckpoint = global.CHECKPOINTS[0];
-    expect(lastCheckpoint.date).toBeGreaterThanOrEqual(beforeDate);
-    expect(lastCheckpoint.date).toBeLessThanOrEqual(afterDate);
+    expect(+lastCheckpoint.date).toBeGreaterThanOrEqual(+beforeDate);
+    expect(+lastCheckpoint.date).toBeLessThanOrEqual(+afterDate);
     expect(lastCheckpoint.isUp).toStrictEqual(true);
     expect(lastCheckpoint.latency).toBeGreaterThanOrEqual(0);
     expect(lastCheckpoint.uri).toStrictEqual(service.uri);
@@ -90,14 +94,16 @@ describe("[Worker] checkers/checkJson()", () => {
       uri: "https://example.com",
     };
 
-    const beforeDate = Date.now();
+    const beforeDate = new Date();
+    beforeDate.setSeconds(0, 0);
     await checkJson(service, [], TIMEOUT);
-    const afterDate = Date.now();
+    const afterDate = new Date();
+    afterDate.setSeconds(0, 0);
 
     expect(global.CHECKPOINTS.length).toStrictEqual(1);
     const lastCheckpoint = global.CHECKPOINTS[0];
-    expect(lastCheckpoint.date).toBeGreaterThanOrEqual(beforeDate);
-    expect(lastCheckpoint.date).toBeLessThanOrEqual(afterDate);
+    expect(+lastCheckpoint.date).toBeGreaterThanOrEqual(+beforeDate);
+    expect(+lastCheckpoint.date).toBeLessThanOrEqual(+afterDate);
     expect(lastCheckpoint.isUp).toStrictEqual(false);
     expect(lastCheckpoint.latency).toBeGreaterThanOrEqual(0);
     expect(lastCheckpoint.uri).toStrictEqual(service.uri);
@@ -146,14 +152,16 @@ describe("[Worker] checkers/checkJson()", () => {
       uri: "https://example.com",
     };
 
-    const beforeDate = Date.now();
+    const beforeDate = new Date();
+    beforeDate.setSeconds(0, 0);
     await checkJson(service, [], TIMEOUT);
-    const afterDate = Date.now();
+    const afterDate = new Date();
+    afterDate.setSeconds(0, 0);
 
     expect(global.CHECKPOINTS.length).toStrictEqual(1);
     const lastCheckpoint = global.CHECKPOINTS[0];
-    expect(lastCheckpoint.date).toBeGreaterThanOrEqual(beforeDate);
-    expect(lastCheckpoint.date).toBeLessThanOrEqual(afterDate);
+    expect(+lastCheckpoint.date).toBeGreaterThanOrEqual(+beforeDate);
+    expect(+lastCheckpoint.date).toBeLessThanOrEqual(+afterDate);
     expect(lastCheckpoint.isUp).toStrictEqual(false);
     expect(lastCheckpoint.latency).toStrictEqual(0);
     expect(lastCheckpoint.uri).toStrictEqual(service.uri);

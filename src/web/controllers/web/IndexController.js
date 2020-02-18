@@ -21,8 +21,11 @@ class WebIndexController {
       }
 
       const { services } = yaml.parse(configuration.source);
+      const metas = [
+        { name: "service-uris", value: JSON.stringify(services.map(({ uri }) => uri)) },
+      ];
 
-      ctx.render("pages/index", { services });
+      ctx.render("pages/index", { metas, services });
     } catch (err) {
       log.err(`[web] [controllers/web/WebIndexController#get()] Error: ${err.message}`);
 

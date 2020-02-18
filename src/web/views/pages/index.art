@@ -58,6 +58,5 @@
 {{ block 'scripts' }}
   <script defer src="/js/vendors/chart-2.9.3.bundle.min.js"></script>
   <script defer src="/js/vendors/moment-2.24.0.min.js"></script>
-  <script defer src="/js/vendors/ramda-0.27.0.min.js"></script>
   <script defer src="/js/index.js" type="module"></script>
 {{ /block }}

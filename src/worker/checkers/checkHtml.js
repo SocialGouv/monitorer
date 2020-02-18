@@ -32,23 +32,33 @@ async function checkWebsite({ expectations, name, uri }, webhooks, timeout) {
   if (expectations.length === 0) return;
 
   let isUp = true;
-  let responseSource;
-  const date = Date.now();
+  let response;
+  const now = Date.now();
 
   try {
     try {
-      const { data } = await axios.get(uri, { timeout });
-      responseSource = data;
+      response = await axios.get(uri, { timeout });
     } catch (err) {
       isUp = false;
 
       log.warn(`Service: ${uri}`);
       log.warn(`Error: "${err.message}"`);
     }
-    const latency = Date.now() - date;
+
+    // Calculate latency:
+    const latency = Date.now() - now;
+
+    // Round date seconds and milliseconds down:
+    const date = new Date(now);
+    date.setSeconds(0, 0);
+
+    // Skip this checkpoint if it already exists:
+    if ((await Checkpoint.findOne({ date, uri })) !== null) {
+      return;
+    }
 
     if (isUp) {
-      const $ = cheerio.load(responseSource);
+      const $ = cheerio.load(response.data);
       for (const { method, selector, value } of expectations) {
         if (typeof $(selector).first()[method] !== "function") {
           throw new Error(`The "${method}" method is not available for html services.`);
