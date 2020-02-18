@@ -6,12 +6,15 @@
   "private": true,
   "scripts": {
     "ci:generate:release_notes": "node ./scripts/ci/generate_release_notes.js",
+    "build:docker": "docker build -t monitorer:1.0.0-alpha.10 .",
     "dev": "yarn dev:docker && yarn dev:data && concurrently \"yarn dev:worker\" \"yarn dev:web\"",
     "dev:data": "node ./scripts/dev/fill_data.js",
     "dev:docker": "docker-compose start db",
     "dev:web": "nodemon --watch ./src/shared --watch ./src/web ./src/web",
     "dev:worker": "nodemon --watch ./src/shared --watch ./src/worker ./src/worker",
     "setup": "cpy --rename=\".env\" ./.env.example . && docker-compose down -v && docker-compose up -d db && docker-compose stop",
+    "start": "node ./src/index.js",
+    "start:docker": "docker-compose up app",
     "start:web": "node ./src/web/index.js",
     "start:worker": "node ./src/worker/index.js",
     "test": "yarn test:lint && yarn test:unit",
@@ -23,7 +26,6 @@
     "postversion": "git push origin HEAD && git push --tags"
   },
   "dependencies": {
-    "@editorjs/editorjs": "2.16.1",
     "@inspired-beings/log": "1.2.0",
     "ajv": "6.11.0",
     "art-template": "4.13.2",

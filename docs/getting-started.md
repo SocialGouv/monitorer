@@ -32,3 +32,4 @@ application) in order to setup and manage the configuration: web services, setti
 Monitorer can be deployed via a single click on:
 
 - [Heroku](heroku.md)
+- [Netlify](netlify.md)

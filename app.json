@@ -20,7 +20,7 @@
       "value": "admin"
     },
     "MONITORER_TITLE": {
-      "description": "The website title for your Monitorer instance.",
+      "description": "Website title for Monitorer dashboard.",
       "value": "Monitorer"
     }
   },
