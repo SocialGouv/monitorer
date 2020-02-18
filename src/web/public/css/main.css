@@ -1,9 +1,13 @@
+nav {
+  user-select: none;
+}
 main {
   margin-bottom: 2rem;
   margin-top: 5rem;
 }
 footer {
   font-size: 0.75rem;
+  user-select: none;
 }
 h2 {
   border-bottom: solid 1px #dddddd;
