@@ -3,10 +3,8 @@ import axios from "../libs/axios.js";
 
 /**
  * @typedef {object} CheckpointModel
- * @property {Date} date
- * @property {boolean} isUp
+ * @property {string} date
  * @property {number} latency
- * @property {string} uri
  */
 
 /**
@@ -14,15 +12,35 @@ import axios from "../libs/axios.js";
  */
 class Checkpoint {
   /**
-   * Get a list of checkpoints from the API.
+   * Get latest checkpoint from API.
    *
+   * @param {string=} uri
+   *
+   * @returns {Promise<CheckpointModel>}
+   */
+  async latest(uri) {
+    try {
+      return await api.get(
+        uri !== undefined ? `/checkpoints/latest?uri=${uri}` : `/checkpoints/latest`,
+      );
+    } catch (err) {
+      console.error(`[server] [public/js/services/Checkpoint#latest()] Error: ${err.message}`);
+
+      return [];
+    }
+  }
+
+  /**
+   * Get a list of checkpoints from API.
+   *
+   * @param {string} uri
    * @param {string} duration
    *
    * @returns {Promise<CheckpointModel[]>}
    */
-  async index(duration) {
+  async index(uri, duration) {
     try {
-      return await api.get(`/checkpoints?duration=${duration}`);
+      return await api.get(`/checkpoints?uri=${uri}&duration=${duration}`);
     } catch (err) {
       console.error(`[server] [public/js/services/Checkpoint#index()] Error: ${err.message}`);
 
@@ -31,21 +49,21 @@ class Checkpoint {
   }
 
   /**
-   * Delete checkpoints from the API (until 7 days ago by default).
+   * Delete checkpoints from API (since 7 days by default).
    *
    * @param {string} uri
-   * @param {Date} until
+   * @param {Date=} since
    *
    * @returns {Promise<void>}
    */
-  async delete(uri, until) {
-    if (until === undefined) {
-      until = new Date();
-      until.setDate(until.getDate() - 7);
+  async delete(uri, since) {
+    if (since === undefined) {
+      since = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+      since.setSeconds(0, 0);
     }
 
     try {
-      await axios.delete(`/checkpoints?uri=${uri}&until=${until}`);
+      await axios.delete(`/checkpoints?uri=${uri}&since=${since}`);
     } catch (err) {
       console.error(`[server] [public/js/services/Checkpoint#index()] Error: ${err.message}`);
     }

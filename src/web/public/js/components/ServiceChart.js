@@ -24,11 +24,6 @@ const DURATION_CHART_TIME_UNIT = {
   ONE_HOUR: "minute",
   ONE_WEEK: "day",
 };
-const DURATION_DIVIDER = {
-  ONE_DAY: 6, // => 240 checkpoints
-  ONE_HOUR: 1, // => 60 checkpoints
-  ONE_WEEK: 6 * 7, // => 240 checkpoints
-};
 
 export default class ServiceChart {
   /**
@@ -38,6 +33,9 @@ export default class ServiceChart {
    */
   constructor($node) {
     try {
+      const now = new Date();
+      now.setSeconds(0, 0);
+
       /** @type {string} */
       this.uri = $node.dataset.uri;
 
@@ -110,6 +108,8 @@ export default class ServiceChart {
         type: "line",
       });
 
+      this.update = this.update.bind(this);
+
       this.bindEvents();
     } catch (err) {
       console.error(`[web] [public/js/components/ServiceChart()] Error: ${err.message}`);
@@ -123,7 +123,7 @@ export default class ServiceChart {
    */
   bindEvents() {
     try {
-      document.addEventListener(EVENT.UPDATE_CHECKPOINTS, this.update.bind(this));
+      document.addEventListener(EVENT.UPDATE_CHECKPOINTS, this.update);
     } catch (err) {
       console.error(`[web] [public/js/components/ServiceChart#bindEvents()] Error: ${err.message}`);
     }
@@ -138,15 +138,16 @@ export default class ServiceChart {
    */
   async update(event) {
     try {
-      const {
-        detail: { checkpoints, duration },
-      } = event;
+      const detail = { ...event.detail };
+      const { checkpoints, duration, uri } = detail;
+
+      // Skip if it's not for this uri:
+      if (uri !== this.uri) return;
 
       this.duration = duration;
 
-      const filteredCheckpoints = checkpoints.filter(({ uri }) => uri === this.uri);
-      const aggregatedCheckpoints = this.aggregate(filteredCheckpoints);
-      this.data = aggregatedCheckpoints.map(({ date, latency }) => ({ x: date, y: latency }));
+      this.data = checkpoints.map(({ date, latency }) => ({ x: date, y: latency }));
+
       this.render();
     } catch (err) {
       console.error(`[web] [public/js/components/ServiceChart#update()] Error: ${err.message}`);
@@ -170,37 +171,6 @@ export default class ServiceChart {
       this.chartJs.update();
     } catch (err) {
       console.error(`[web] [public/js/components/ServiceChart#render()] Error: ${err.message}`);
-    }
-  }
-
-  aggregate(checkpoints) {
-    try {
-      const divider = DURATION_DIVIDER[this.duration];
-
-      return divider === 1
-        ? checkpoints
-        : window.R.pipe(
-            window.R.splitEvery(divider),
-            window.R.map(checkpointsCluster => {
-              const aggregatedCheckpoint = window.R.reduce(
-                (prev, checkpoint) => ({
-                  ...prev,
-                  isUp: prev.isUp && checkpoint.isUp,
-                  latency: prev.latency + checkpoint.latency,
-                }),
-                checkpointsCluster[0],
-              )(checkpointsCluster.slice(1));
-
-              return {
-                ...aggregatedCheckpoint,
-                latency: aggregatedCheckpoint.isUp
-                  ? Math.round(aggregatedCheckpoint.latency / divider)
-                  : 0,
-              };
-            }),
-          )(checkpoints);
-    } catch (err) {
-      console.error(`[web] [public/js/components/ServiceChart#aggregate()] Error: ${err.message}`);
     }
   }
 }

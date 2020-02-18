@@ -1,7 +1,8 @@
 import { EVENT } from "../constants.js";
+import logService from "../services/log.js";
 
 /**
- * @typedef {object} LogDataItem
+ * @typedef {object} LogItem
  * @property {Date} from
  * @property {Date=} to
  */
@@ -16,10 +17,12 @@ export default class ServiceLog {
     try {
       this.$node = $node;
 
-      /** @type {LogDataItem[]} */
-      this.data = [];
+      /** @type {string[]} */
+      this.logs = [];
       /** @type {string} */
       this.uri = $node.dataset.uri;
+
+      this.update = this.update.bind(this);
 
       this.bindEvents();
     } catch (err) {
@@ -34,7 +37,7 @@ export default class ServiceLog {
    */
   bindEvents() {
     try {
-      document.addEventListener(EVENT.UPDATE_CHECKPOINTS, this.update.bind(this));
+      document.addEventListener(EVENT.UPDATE_CHECKPOINTS, this.update);
     } catch (err) {
       console.error(`[web] [public/js/components/ServiceLog#bindEvents()] Error: ${err.message}`);
     }
@@ -49,25 +52,14 @@ export default class ServiceLog {
    */
   async update(event) {
     try {
-      const {
-        detail: { checkpoints },
-      } = event;
+      const detail = { ...event.detail };
+      const { duration, uri } = detail;
 
-      const filteredCheckpoints = checkpoints.filter(({ uri }) => uri === this.uri);
-      const sortedCheckpoints = filteredCheckpoints.reverse();
-      this.data = sortedCheckpoints.reduce((prev, { date, isUp }) => {
-        if (prev.length === 0) {
-          if (!isUp) prev.push({ from: date });
+      // Skip if it's not for this uri:
+      if (uri !== this.uri) return;
 
-          return prev;
-        }
+      this.logs = await logService.index(uri, duration);
 
-        const lastOfPrev = prev[prev.length - 1];
-        if (!isUp && lastOfPrev.to !== undefined) prev.push({ from: date });
-        if (isUp && lastOfPrev.to === undefined) lastOfPrev.to = date;
-
-        return prev;
-      }, []);
       this.render();
     } catch (err) {
       console.error(`[web] [public/js/components/ServiceLog#update()] Error: ${err.message}`);
@@ -81,20 +73,10 @@ export default class ServiceLog {
    */
   render() {
     try {
-      // const lastOfPrev = this.data[this.data.length - 1];
       let source = "";
 
-      // if (this.data.length === 0 || lastOfPrev.to !== undefined) {
-      //   source += `<h4><span class="badge badge-success">UP</span></h4>`;
-      // } else {
-      //   source += `<h4><span class="badge badge-danger">DOWN</span></h4>`;
-      // }
-
       source += `<pre><code>`;
-      source += this.data
-        .reverse()
-        .map(this.humanize)
-        .join("\n");
+      source += this.logs.map(this.humanize).join("\n");
       source += `</code></pre>`;
 
       this.$node.innerHTML = source;
@@ -104,22 +86,22 @@ export default class ServiceLog {
   }
 
   /**
-   * Humanize a date.
+   * Humanize a log item.
    *
-   * @param {LogDataItem} dataItem
+   * @param {LogItem} logItem
    *
    * @returns {string}
    */
-  humanize(dataItem) {
-    const from = window.moment(dataItem.from);
+  humanize(logItem) {
+    const from = window.moment(logItem.from);
 
-    if (dataItem.to === undefined) {
+    if (logItem.to === undefined) {
       const ago = from.fromNow();
 
       return `Went down ${ago}.`;
     }
 
-    const to = window.moment(dataItem.to);
+    const to = window.moment(logItem.to);
 
     const delay = window.moment.duration(to.diff(from)).humanize();
     const on = from.format("LLLL");

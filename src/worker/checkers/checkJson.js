@@ -32,23 +32,33 @@ async function checkHtml({ expectations, name, uri }, webhooks, timeout) {
   if (expectations.length === 0) return;
 
   let isUp = true;
-  let responseData;
-  const date = Date.now();
+  let response;
+  const now = Date.now();
 
   try {
     try {
-      const { data } = await axios.get(uri, { timeout });
-      responseData = data;
+      response = await axios.get(uri, { timeout });
     } catch (err) {
       isUp = false;
 
       log.warn(`Service: ${uri}`);
       log.warn(`Error: "${err.message}"`);
     }
-    const latency = Date.now() - date;
+
+    // Calculate latency:
+    const latency = Date.now() - now;
+
+    // Round date seconds and milliseconds down:
+    const date = new Date(now);
+    date.setSeconds(0, 0);
+
+    // Skip this checkpoint if it already exists:
+    if ((await Checkpoint.findOne({ date, uri })) !== null) {
+      return;
+    }
 
     if (isUp) {
-      const data = R.type(responseData) === "Array" ? responseData[0] : responseData;
+      const data = R.type(response.data) === "Array" ? response.data[0] : response.data;
       if (data === undefined) throw new Error(`The data can't be processed.`);
 
       let result;
