@@ -19,19 +19,19 @@ export default class Dashboard {
       this.$serviceLogs = [...$node.querySelectorAll(".js-serviceLog")];
       this.$serviceTitles = [...$node.querySelectorAll(".js-serviceTitle")];
 
-      this.duration = DURATION.ONE_DAY;
       /** @type {string[]} */
       this.serviceUris = metas.serviceUris;
       /** @type {number | null} */
       this.timeout = null;
 
+      this.changeDuration = this.changeDuration.bind(this);
       this.update = this.update.bind(this);
       this.updateDuration = this.updateDuration.bind(this);
       this.updateService = this.updateService.bind(this);
 
       this.bindEvents();
       this.render();
-      this.update();
+      this.updateDuration();
     } catch (err) {
       console.error(`[web] [public/js/components/Dashboard()] Error: ${err.message}`);
     }
@@ -44,8 +44,10 @@ export default class Dashboard {
    */
   bindEvents() {
     try {
+      window.addEventListener("popstate", this.updateDuration);
+
       this.$durationButtons.forEach($durationButton =>
-        $durationButton.addEventListener("click", this.updateDuration),
+        $durationButton.addEventListener("click", this.changeDuration),
       );
     } catch (err) {
       console.error(`[web] [public/js/components/Dashboard#bindEvents()] Error: ${err.message}`);
@@ -53,18 +55,43 @@ export default class Dashboard {
   }
 
   /**
-   * Update duration.
+   * Change duration.
    *
    * @param {MouseEvent} event
    *
    * @returns {void}
    */
-  async updateDuration(event) {
+  changeDuration(event) {
     try {
       if (this.timeout !== null) window.clearTimeout(this.timeout);
 
       const { target: $durationButton } = event;
       const { duration } = $durationButton.dataset;
+
+      $durationButton.blur();
+      history.pushState(null, null, `#${duration}`);
+
+      this.updateDuration();
+    } catch (err) {
+      console.error(
+        `[web] [public/js/components/Dashboard#changeDuration()] Error: ${err.message}`,
+      );
+    }
+  }
+
+  /**
+   * Update duration.
+   *
+   * @returns {void}
+   */
+  updateDuration() {
+    try {
+      const pathDuration = window.location.hash.substr(1);
+      const duration =
+        DURATION[pathDuration] !== undefined ? DURATION[pathDuration] : DURATION.ONE_HOUR;
+      const $durationButton = this.$durationButtons.find(
+        ({ dataset }) => dataset.duration === duration,
+      );
 
       this.$durationButtons.map($durationButton => $durationButton.classList.remove("active"));
       $durationButton.classList.add("active");

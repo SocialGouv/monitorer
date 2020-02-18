@@ -16,7 +16,7 @@
           1 Hour
         </button>
         <button
-          class="js-durationButton btn btn-info mr-1 active"
+          class="js-durationButton btn btn-info mr-1"
           data-duration="ONE_DAY"
           type="button"
         >
