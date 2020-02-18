@@ -1,6 +1,7 @@
 {
   "docs": {
-    "Documentation": ["getting-started", "heroku"],
+    "Documentation": ["getting-started"],
+    "Deployment": ["digital-ocean", "heroku"],
     "References": ["configuration"]
   }
 }

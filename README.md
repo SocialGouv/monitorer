@@ -13,19 +13,16 @@ You can check a live example at: https://socialgouv-monitor.herokuapp.com.
 
 ## Features
 
-- YAML configuration
-- Custom Expectations (i.e.: HTML tag text, JSON property value)
-- JSON and HTML response support
-- Cutomizable interval (via a cron)
+- All-in-one YAML configuration
+- Custom expectations _(i.e.: HTML tag text, JSON property value)_
+- Supports JSON and HTML services
 - Deployable in one click on:
   - Heroku
 
 ## Roadmap
 
 - Better documentation
-- Ping IPs (with custom ports)
-- Digital Ocean deployment
-- Netlify deployment
+- Ping service (with custom ports)
 - Linode deployment
 
 ## Deployment
