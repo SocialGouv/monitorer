@@ -5,6 +5,13 @@ const R = require("ramda");
 const Checkpoint = require("../../shared/models/Checkpoint");
 
 /**
+ * @typedef {object} ServiceModel
+ * @property {string} uri
+ * @property {string} name
+ * @property {string} type
+ * @property {ServiceModelExpectation[]} expectations
+ */
+/**
  * @typedef {object} ServiceModelExpectation
  * @property {string} method
  * @property {string} selector
@@ -12,11 +19,11 @@ const Checkpoint = require("../../shared/models/Checkpoint");
  */
 
 /**
- * @typedef {object} ServiceModel
- * @property {string} uri
- * @property {string} name
- * @property {string} type
- * @property {ServiceModelExpectation[]} expectations
+ * @typedef {object} Webhook
+ * @property {string} url
+ * @property {"GET" | "POST"} method
+ * @property {object=} headers
+ * @property {object=} body
  */
 
 /**
@@ -95,16 +102,64 @@ async function checkHtml({ expectations, name, uri }, webhooks, timeout) {
     });
     await newCheckpoint.save();
 
-    if (lastCheckpoint !== null && isUp !== lastCheckpoint.isUp) {
-      webhooks.map(async webhook => {
-        const message = !isUp && lastCheckpoint.isUp ? `${name} is down` : `${name} is up again`;
-        await axios.post(webhook, {
-          message,
-          uri,
-        });
+    if (
+      (lastCheckpoint === null && !isUp) ||
+      (lastCheckpoint !== null && isUp !== lastCheckpoint.isUp)
+    ) {
+      webhooks.map(async ({ body, headers, method, url }) => {
+        try {
+          const message = !isUp
+            ? `[Monitorer] ${name} is down`
+            : `[Monitorer] ${name} is back online`;
 
-        log.warn(`Webhook: ${webhook}`);
-        log.warn(`Message: ${message}`);
+          if (method === "GET") {
+            await axios.get(url);
+          }
+
+          if (method === "POST") {
+            const bodyString = JSON.stringify(body)
+              .replace(/{IS_UP}(.*){\/IS_UP}/s, isUp ? "$1" : "")
+              .replace(/{IS_DOWN}(.*){\/IS_DOWN}/s, !isUp ? "$1" : "")
+              .replace("{MESSAGE}", message)
+              .replace("{NAME}", name)
+              .replace("{URI}", uri);
+
+            await axios.post(url, JSON.parse(bodyString), {
+              headers,
+            });
+          }
+
+          log.warn(`Webhook: ${url}`);
+          log.warn(`Message: ${message}`);
+        } catch (err) {
+          log.err(`[worker] [checkers/checkJson()] [${uri}] Error: %s`, err.message || err);
+
+          // Status code is no 2XX:
+          if (err.response !== undefined) {
+            log.err(
+              `[worker] [checkers/checkJson()] [${uri}] Status: %s`,
+              JSON.stringify(err.response.status),
+            );
+            log.err(
+              `[worker] [checkers/checkJson()] [${uri}] Headers: %s`,
+              JSON.stringify(err.response.headers),
+            );
+            log.err(
+              `[worker] [checkers/checkJson()] [${uri}] Data: %s`,
+              JSON.stringify(err.response.data),
+            );
+
+            return;
+          }
+
+          // No response:
+          if (err.request !== undefined) {
+            log.err(
+              `[worker] [checkers/checkJson()] [${uri}] Request: %s`,
+              JSON.stringify(err.request),
+            );
+          }
+        }
       });
     }
   } catch (err) {

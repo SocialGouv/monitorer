@@ -1,7 +1,8 @@
 {
   "docs": {
-    "Documentation": ["getting-started"],
-    "Deployment": ["digital-ocean", "heroku"],
+    "Documentation": ["getting-started", "webhooks", "maintenance"],
+    "Deployment": ["deployment-digital-ocean", "deployment-heroku", "deployment-docker"],
+    "Webhooks": ["webhook-sendgrid"],
     "References": ["configuration"]
   }
 }

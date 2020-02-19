@@ -31,10 +31,21 @@ export default class Configuration {
           this.$editor.parentNode.replaceChild($codeMirrorEditor, this.$editor);
         },
         {
+          autocapitalize: false,
+          autocorrect: false,
+          extraKeys: {
+            // Insert spaces instead of tabs when pressing "TAB":
+            Tab: function(cm) {
+              cm.replaceSelection(Array(cm.getOption("indentUnit") + 1).join(" "));
+            },
+          },
+          indentUnit: 2,
+          indentWithTabs: false,
           keyMap: "sublime",
           lineNumbers: true,
           mode: "yaml",
           selfContain: true,
+          spellcheck: false,
           tabSize: 2,
           theme: "ayu-dark",
           value: this.$editor.value,

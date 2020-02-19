@@ -1,11 +1,21 @@
-/**
- * Copyright (c) 2017-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
- 
-/* your custom css */
+.mainContainer {
+  padding: 40px 0 0;
+}
+
+.projectTitle > small {
+  line-height: 1.5;
+}
+.promoSection .promoRow .pluginRowBlock .pluginWrapper {
+  margin: 0 0.5rem;
+}
+.button {
+  border-radius: 0;
+}
+
+article p img.buttonDeploy {
+  height: 42px;
+  width: auto;
+}
 
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
 }

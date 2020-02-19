@@ -3,8 +3,9 @@ const siteConfig = {
   baseUrl: "/monitorer/",
   cleanUrl: true,
   colors: {
-    primaryColor: "#222222",
-    secondaryColor: "#555555",
+    primaryColor: "#10910e",
+    prismColor: "rgba(153, 66, 79, 0.03)",
+    secondaryColor: "#095708",
   },
   docsSideNavCollapsible: false,
   editUrl: "https://github.com/SocialGouv/monitorer/tree/master/docs/",
@@ -15,7 +16,8 @@ const siteConfig = {
   // headerIcon: "img/favicon.ico",
   headerLinks: [
     { doc: "getting-started", label: "Docs" },
-    { search: true },
+    // { languages: true },
+    // { search: true },
     { href: "https://github.com/SocialGouv/monitorer", label: "Github" },
   ],
   highlight: {
@@ -27,7 +29,8 @@ const siteConfig = {
   projectName: "monitorer",
   repoPath: "SocialGouv/monitorer",
   scripts: [],
-  tagline: "A deploy-in-one-click web services uptime monitor",
+  tagline:
+    "A highly customizable deploy-in-one-click application to monitor your web services uptime and latency",
   title: "Monitorer",
   twitter: false,
   twitterUsername: "BetaGouv",
