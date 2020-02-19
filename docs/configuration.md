@@ -10,9 +10,6 @@ title: Configuration
 version: 1
 timeout: 15000
 
-webhooks:
-  - https://example.com
-
 services:
   - name: Website Example
     type: html
@@ -20,7 +17,7 @@ services:
     expectations:
       - selector: h1
         method: text
-        value: Example Domain
+        value: "Example Domain"
 
   - name: API Example
     type: json
@@ -28,17 +25,31 @@ services:
     expectations:
       - selector: userId
         method: type
-        value: Number
+        value: "Number"
       - selector: title
         method: value
-        value: sunt aut facere repellat provident occaecati excepturi optio reprehenderit
+        value: "sunt aut facere repellat provident occaecati excepturi optio reprehenderit"
+
+webhooks:
+  - url: https://example.com
+    method: GET
+
+  - url: https://example.com
+    method: POST
+    headers:
+      Authorization: Bearer A_TOKEN
+      Content-Type: application/json
+    body:
+      whatever:
+        - data: structure
+          you: need
 ```
 
 ## Reference
 
 ### `version` [number]
 
-This is the Monitorer configuration format version. For now, it must be `1`.
+**Required.** Monitorer configuration format version. For now, it must be `1`.
 
 ```yaml
 version: 1
@@ -46,44 +57,58 @@ version: 1
 
 ### `timeout` [number]
 
-This is the maximum delay (in milliseconds) after which a service will be considered as down if it
+**Required.** Maximum delay (in milliseconds) after which a service will be considered as down if it
 didn't respond. This value must be an integer between `1` and `30000`.
 
 ```yaml
 timeout: 15000
 ```
 
-### `webhooks` [array\<string>]
+### `services` [array\<object>]
+
+**Required.** List of the web services you wish to monitor.
+
+```yaml
+services:
+  - …
+  - …
+```
+
+A service **must** have a `name`, a `type`, a `uri` and at least one expectation (explained below).
+
+The `type` can be `"html"` or `"json"` (`"ping"` type should become available in the following
+weeks), should match
+
+```yaml
+services:
+  - name: Website Example
+    type: html
+    uri: https://example.com
+    expectations:
+      - …
+      - …
+```
+
+#### `expectations` [array\<object>]
+
+**Required.** List of expectations to check in order to consider the related web service as being
+"up".
+
+```yaml
+services:
+  - …
+    expectations:
+      - …
+      - …
+```
+
+### `webhooks` [array\<object>]
 
 List of webhook URLs called each time a service goes down or goes up again. Only a service state
 change (up or down) will trigger these hooks.
 
 ```yaml
 webhooks:
-  - https://example.com/a-webhook
-  - https://example.com/another-webhook
+  - …
+  - …
 ```
-
-Each webhook URL is called via a `POST` request with a JSON body:
-
-```json
-{
-  message: "[SERVICE_NAME] is down",
-  uri: "[SERVICE_URI]",
-}
-```
-
-or:
-
-```json
-{
-  message: "[SERVICE_NAME] is up again",
-  uri: "[SERVICE_URI]",
-}
-```
-
-### `services` [array\<object>]
-
-This is the list of the web services you want to
-
-#### `expectations` [array\<object>]

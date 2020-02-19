@@ -91,6 +91,7 @@
 {{ block 'scripts' }}
   <script defer src="/js/vendors/codemirror-5.51.0.min.js"></script>
   <script defer src="/js/vendors/codemirror-5.51.0.keymap.sublime.min.js"></script>
+  <script defer src="/js/vendors/codemirror-5.51.0.lint.min.js"></script>
   <script defer src="/js/vendors/codemirror-5.51.0.lint.yaml.min.js"></script>
   <script defer src="/js/vendors/codemirror-5.51.0.mode.yaml.min.js"></script>
   <script defer src="/js/admin.js" type="module"></script>

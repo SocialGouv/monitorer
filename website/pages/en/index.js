@@ -31,7 +31,11 @@ class HomeSplash extends React.Component {
     const ProjectTitle = props => (
       <h2 className="projectTitle">
         {props.title}
-        <small>{props.tagline}.</small>
+        <small>
+          A highly customizable deploy-in-one-click application
+          <br />
+          to monitor your web services uptime and latency.
+        </small>
       </h2>
     );
 
@@ -134,7 +138,7 @@ class Index extends React.Component {
     // );
 
     const Features = () => (
-      <Block layout="fourColumn">
+      <Block background="light" layout="fourColumn">
         {[
           {
             content: "Deploy Monitorer on the most popular PaaS in a matter of seconds.",
@@ -143,13 +147,14 @@ class Index extends React.Component {
             title: "One-Click Deployment",
           },
           {
-            content: "Able to check 100+ web services, each minute, on the most basic PaaS dynos.",
+            content:
+              "Able to check 100+ web services, each minute, on the cheapest (if not free) PaaS containers.",
             image: `${baseUrl}img/undraw_cloud_hosting_aodd.svg`,
             imageAlign: "top",
             title: "Scalable",
           },
           {
-            content: "A single YAML configuration file to handle all your web services.",
+            content: "A single YAML configuration file to setup and customize everything.",
             image: `${baseUrl}img/undraw_code_review_l1q9.svg`,
             imageAlign: "top",
             title: "Easy Configuration",

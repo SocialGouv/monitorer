@@ -123,6 +123,37 @@
           "required": ["selector", "method", "value"]
         }
       ]
+    },
+
+    "webhook": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "minLength": 1
+        },
+        "method": {
+          "enum": ["GET", "POST"]
+        },
+        "headers": {
+          "type": "object",
+          "properties": {
+            "Authorization": {
+              "type": "string",
+              "minLength": 1
+            },
+            "Content-Type": {
+              "const": "application/json"
+            }
+          },
+          "additionalProperties": false
+        },
+        "body": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["url", "method"]
     }
   },
 
@@ -136,21 +167,17 @@
       "maximum": 30000,
       "minimum": 1
     },
-    "webhooks": {
-      "type": "array",
-      "items": {
-        "type": "string",
-        "minLength": 1,
-        "uniqueItems": true
-      },
-      "minItems": 1
-    },
     "services": {
       "type": "array",
       "items": { "$ref": "#/$defs/service" },
       "minItems": 1
+    },
+    "webhooks": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/webhook" },
+      "minItems": 1
     }
   },
   "additionalProperties": false,
-  "required": ["version", "timeout", "webhooks", "services"]
+  "required": ["version", "timeout", "services"]
 }

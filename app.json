@@ -1,13 +1,10 @@
 {
   "name": "Monitorer",
-  "description": "A deploy-in-one-click web services uptime monitorer.",
+  "description": "A highly customizable deploy-in-one-click application to monitor your web services uptime and latency.",
   "addons": [
     {
       "plan": "mongolab:sandbox",
       "as": "MONGO"
-    },
-    {
-      "plan": "papertrail:choklad"
     }
   ],
   "env": {
