@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Maintenance · Monitorer</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="_In progress..._"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Maintenance · Monitorer"/><meta property="og:type" content="website"/><meta property="og:url" content="https://SocialGouv.github.io/monitorer/"/><meta property="og:description" content="_In progress..._"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/monitorer/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script src="/monitorer/js/scrollSpy.js"></script><link rel="stylesheet" href="/monitorer/css/main.css"/><script src="/monitorer/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/monitorer/en"><h2 class="headerTitle">Monitorer</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/monitorer/docs/en/getting-started" target="_self">Docs</a></li><li class=""><a href="https://github.com/SocialGouv/monitorer" target="_self">Github</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Documentation</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Documentation</h3><ul class=""><li class="navListItem"><a class="navItem" href="/monitorer/docs/en/getting-started">Getting Started</a></li><li class="navListItem"><a class="navItem" href="/monitorer/docs/en/webhooks">Webhooks</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/monitorer/docs/en/maintenance">Maintenance</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deployment</h3><ul class=""><li class="navListItem"><a class="navItem" href="/monitorer/docs/en/deployment-digital-ocean">Deploy to Digital Ocean</a></li><li class="navListItem"><a class="navItem" href="/monitorer/docs/en/deployment-heroku">Deploy to Heroku</a></li><li class="navListItem"><a class="navItem" href="/monitorer/docs/en/deployment-docker">Deploy via Docker</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Webhooks</h3><ul class=""><li class="navListItem"><a class="navItem" href="/monitorer/docs/en/webhook-sendgrid">Link to SendGrid</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">References</h3><ul class=""><li class="navListItem"><a class="navItem" href="/monitorer/docs/en/configuration">Configuration</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/SocialGouv/monitorer/tree/master/docs/maintenance.md" target="_blank" rel="noreferrer noopener">Edit</a><h1 id="__docusaurus" class="postHeaderTitle">Maintenance</h1></header><article><div><span><p><em>In progress...</em></p>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 2/19/2020 by Ivan Gabriele</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/monitorer/docs/en/webhooks"><span class="arrow-prev">← </span><span>Webhooks</span></a><a class="docs-next button" href="/monitorer/docs/en/deployment-digital-ocean"><span>Deploy to Digital Ocean</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/monitorer/" class="nav-home"><img src="/monitorer/img/favicon.ico" alt="Monitorer" width="66" height="58"/></a><div><h5>Docs</h5><a href="/monitorer/docs/en/getting-started">Getting Started</a><a href="/monitorer/docs/en/configuration">Configuration</a></div><div><h5>Community</h5><a href="https://github.com/SocialGouv" rel="noopener noreferrer" target="_blank">Github</a><a href="https://incubateur.social.gouv.fr" rel="noopener noreferrer" target="_blank">Fabrique numérique des Ministères Sociaux</a></div><div><a href="https://github.com/SocialGouv/monitorer" rel="noopener noreferrer" target="_blank"><img alt="Star @SocialGouv/monitorer on Github" src="https://img.shields.io/github/stars/SocialGouv/monitorer?color=4078c0&amp;logo=github&amp;style=for-the-badge"/></a><a href="https://twitter.com/BetaGouv" rel="noopener noreferrer" target="_blank"><img alt="Follow @BetaGouv" src="https://img.shields.io/twitter/follow/BetaGouv?color=1da1f2&amp;logo=twitter&amp;style=for-the-badge"/></a></div></section><a class="fbOpenSource" href="https://beta.gouv.fr" rel="noreferrer noopener" target="_blank"><img src="/monitorer/img/betagouv-logo.svg" alt="beta.gouv.fr"/></a></footer></div><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script></body></html>
