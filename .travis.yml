@@ -43,6 +43,8 @@ jobs:
         edge:
           branch: master
         release_notes_file: ./RELEASE_NOTES.md
+        on:
+          tags: true
 
     - stage: Release
       name: Github Pages
