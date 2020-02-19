@@ -4,7 +4,7 @@ const shelljs = require("shelljs");
 require("colors");
 
 const { version: VERSION } = require("../../package");
-const DOCS_HEROKU_PATH = path.join(__dirname, "../../docs/heroku.md");
+const DOCS_HEROKU_PATH = path.join(__dirname, "../../docs/deployment-heroku.md");
 const README_PATH = path.join(__dirname, "../../README.md");
 
 /**
