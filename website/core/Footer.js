@@ -36,10 +36,16 @@ class Footer extends React.Component {
           <div>
             <h5>Community</h5>
             <a href="https://github.com/SocialGouv" rel="noopener noreferrer" target="_blank">
-              Github
+              Github organization
             </a>
-            <a href="https://incubateur.social.gouv.fr" rel="noopener noreferrer" target="_blank">
+            <a
+              href="https://incubateur.social.gouv.fr"
+              lang="fr"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
               Fabrique numérique des Ministères Sociaux
+              <sup>[fr]</sup>
             </a>
           </div>
           <div>
@@ -55,6 +61,7 @@ class Footer extends React.Component {
             </a>
             <a
               href={`https://twitter.com/${this.props.config.twitterUsername}`}
+              lang="fr"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -69,6 +76,7 @@ class Footer extends React.Component {
         <a
           className="fbOpenSource"
           href="https://beta.gouv.fr"
+          lang="fr"
           rel="noreferrer noopener"
           target="_blank"
         >

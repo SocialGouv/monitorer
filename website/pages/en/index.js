@@ -2,7 +2,6 @@ const React = require("react");
 
 const CompLibrary = require("../../core/CompLibrary.js");
 
-// const MarkdownBlock = CompLibrary.MarkdownBlock; /* Used to read markdown */
 const Container = CompLibrary.Container;
 const GridBlock = CompLibrary.GridBlock;
 
@@ -88,80 +87,62 @@ class Index extends React.Component {
       </Container>
     );
 
-    // const FeatureCallout = () => (
-    //   <div className="productShowcaseSection paddingBottom" style={{ textAlign: "center" }}>
-    //     <h2>Feature Callout</h2>
-    //     <MarkdownBlock>These are features of this project</MarkdownBlock>
-    //   </div>
-    // );
-
-    // const TryOut = () => (
-    //   <Block id="try">
-    //     {[
-    //       {
-    //         content:
-    //           "To make your landing page more attractive, use illustrations! Check out " +
-    //           "[**unDraw**](https://undraw.co/) which provides you with customizable illustrations which are free to use. " +
-    //           "The illustrations you see on this page are from unDraw.",
-    //         image: `${baseUrl}img/undraw_operating_system.svg`,
-    //         imageAlign: "left",
-    //         title: "Wonderful SVG Illustrations",
-    //       },
-    //     ]}
-    //   </Block>
-    // );
-
-    // const Description = () => (
-    //   <Block background="dark">
-    //     {[
-    //       {
-    //         content: "This is another description of how this project is useful",
-    //         image: `${baseUrl}img/undraw_operating_system.svg`,
-    //         imageAlign: "right",
-    //         title: "Description",
-    //       },
-    //     ]}
-    //   </Block>
-    // );
-
-    // const LearnHow = () => (
-    //   <Block background="light">
-    //     {[
-    //       {
-    //         content: "Each new Docusaurus project has **randomly-generated** theme colors.",
-    //         image: `${baseUrl}img/undraw_operating_system.svg`,
-    //         imageAlign: "right",
-    //         title: "Randomly Generated Theme Colors",
-    //       },
-    //     ]}
-    //   </Block>
-    // );
-
     const Features = () => (
       <Block background="light" layout="fourColumn">
         {[
           {
-            content: "Deploy Monitorer on the most popular PaaS in a matter of seconds.",
+            content: "Deploy Monitorer on the most popular PaaS in seconds.",
             image: `${baseUrl}img/undraw_time_management_30iu.svg`,
             imageAlign: "top",
             title: "One-Click Deployment",
           },
           {
-            content:
-              "Able to check 100+ web services, each minute, on the cheapest (if not free) PaaS containers.",
-            image: `${baseUrl}img/undraw_cloud_hosting_aodd.svg`,
+            content: "Monitor 100+ web services on the cheapest PaaS instances.",
+            image: `${baseUrl}img/undraw_Outer_space_drqu.svg`,
             imageAlign: "top",
-            title: "Scalable",
+            title: "Highly Scalable",
           },
           {
-            content: "A single YAML configuration file to setup and customize everything.",
-            image: `${baseUrl}img/undraw_code_review_l1q9.svg`,
+            content: "A single YAML file to configure everything.",
+            image: `${baseUrl}img/undraw_Birthday_cake_2wxy.svg`,
             imageAlign: "top",
-            title: "Easy Configuration",
+            title: "Painless Configuration",
+          },
+          {
+            content: "Customize (almost) everything. Or don't 🐰.",
+            image: `${baseUrl}img/undraw_sunlight_tn7t.svg`,
+            imageAlign: "top",
+            title: "Fully Customizable",
           },
         ]}
       </Block>
     );
+
+    // const Dashboard = () => (
+    //   <Block background="dark">
+    //     {[
+    //       {
+    //         content: "",
+    //         image: `${baseUrl}img/screenshot-dashboard.png`,
+    //         imageAlign: "right",
+    //         title: "Monitorer Dashboard",
+    //       },
+    //     ]}
+    //   </Block>
+    // );
+
+    // const Administration = () => (
+    //   <Block background="light">
+    //     {[
+    //       {
+    //         content: "",
+    //         image: `${baseUrl}img/screenshot-administration.png`,
+    //         imageAlign: "left",
+    //         title: "Monitorer Administration",
+    //       },
+    //     ]}
+    //   </Block>
+    // );
 
     // const Showcase = () => {
     //   if ((siteConfig.users || []).length === 0) {
@@ -197,10 +178,8 @@ class Index extends React.Component {
         <HomeSplash siteConfig={siteConfig} language={language} />
         <div className="mainContainer">
           <Features />
-          {/* <FeatureCallout /> */}
-          {/* <LearnHow /> */}
-          {/* <TryOut /> */}
-          {/* <Description /> */}
+          {/* <Dashboard /> */}
+          {/* <Administration /> */}
           {/* <Showcase /> */}
         </div>
       </div>

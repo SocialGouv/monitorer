@@ -1,38 +1,44 @@
-# Monitorer
 
-[![Apache 2.0 License][img-license]][link-license]
 [![Latest Version][img-version]][link-version]
 [![Build Status][img-travis]][link-travis]
 [![Code Coverage][img-codecov]][link-codecov]
 
-A highly customizable deploy-in-one-click application to monitor your web services uptime and
-latency. In pure JS.
+---
 
-## Example
+<h1 align="center">Monitorer</h1>
 
-You can check a live example at: https://socialgouv-monitor.herokuapp.com.
+<h2 align="center">
+  A highly customizable deploy-in-one-click application<br>
+  to monitor your web services uptime and latency.
+</h2>
 
-## Features
+**⌚️ One-Click Deployment**: Deploy Monitorer on the most popular PaaS in seconds.
 
-- All-in-one YAML configuration
-- Custom expectations _(i.e.: HTML tag text, JSON property value)_
-- Supports JSON and HTML services
-- Deployable in one click on:
-  - Heroku
+**🚀 Highly Scalable**: Monitor 100+ web services on the cheapest PaaS instances.
 
-## Roadmap
+**🍰 Painless Configuration**: A single YAML file to configure everything.
 
-- Better documentation
-- Ping service (with custom ports)
-- Linode deployment
+**👓 Fully Customizable**: Customize (almost) everything. Or don't 🐰.
 
-## Deployment
+---
+
+## Live Example
+
+Watch a live example of our @SocialGouv monitor at: https://socialgouv-monitor.herokuapp.com.
+
+## Getting Started
+
+Please read [our documentation][link-documentation].
+
+## One-Click Deployment
 
 ### Heroku
 
-In one click:
-
 [![Deploy to Heroku][img-heroku]][link-heroku]
+
+## Roadmap
+
+- Ping service (with custom ports)
 
 ## Contribute
 
@@ -40,7 +46,7 @@ Please check the [contributing documentation][link-contributing].
 
 ## License
 
-This repository source code is distributed under an [Apache 2.0 license][link-license].
+[![Apache 2.0 License][img-license]][link-license]
 
 
 
@@ -52,6 +58,7 @@ This repository source code is distributed under an [Apache 2.0 license][link-li
 
 [link-codecov]: https://codecov.io/gh/SocialGouv/monitorer
 [link-contributing]: https://github.com/SocialGouv/monitorer/blob/master/CONTRIBUTING.md
+[link-documentation]: https://incubateur.social.gouv.fr/monitorer/docs/en/getting-started
 [link-license]: https://github.com/SocialGouv/monitorer/blob/master/LICENSE
 [link-travis]: https://travis-ci.com/SocialGouv/monitorer
 [link-version]: https://github.com/SocialGouv/monitorer/releases
