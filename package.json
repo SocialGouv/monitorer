@@ -1,6 +1,6 @@
 {
   "name": "@socialgouv/monitorer",
-  "version": "1.0.0-alpha.11",
+  "version": "1.0.0-alpha.12",
   "description": "A highly customizable deploy-in-one-click application to monitor your web services uptime and latency.",
   "license": "Apache-2.0",
   "private": true,
