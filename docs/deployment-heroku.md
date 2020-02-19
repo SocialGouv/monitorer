@@ -15,6 +15,6 @@ The _Free_ plan should be enough for the MongoDB add-on if you regularly clean u
 <!-- This part SHOULD NOT be touched since it is CI-generated: -->
 <!-- CI_START -->
 
-[link-heroku]: https://heroku.com/deploy?template=https://github.com/SocialGouv/monitorer/tree/v1.0.0-alpha.10
+[link-heroku]: https://heroku.com/deploy?template=https://github.com/SocialGouv/monitorer/tree/v1.0.0-alpha.12
 
 <!-- CI_END -->

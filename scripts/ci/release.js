@@ -46,7 +46,7 @@ const README_PATCH = `
       /<!-- CI_START.*CI_END -->/s,
       DOCS_HEROKU_PATCH,
     );
-    fs.writeFileSync(README_PATH, newDocsHerokuSource);
+    fs.writeFileSync(DOCS_HEROKU_PATH, newDocsHerokuSource);
 
     // REAME.md
     const readmeSource = fs.readFileSync(README_PATH, "utf8");
