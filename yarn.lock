@@ -359,22 +359,22 @@
   dependencies:
     type-detect "4.0.8"
 
-"@socialgouv/eslint-config-recommended@^0.16.0":
-  version "0.16.0"
-  resolved "https://registry.yarnpkg.com/@socialgouv/eslint-config-recommended/-/eslint-config-recommended-0.16.0.tgz#12009fce089a85ecba9b13ffed540a3f6714f793"
-  integrity sha512-miNkLTmYYT0lVHTn3sUMH6t9N4H6rEKBAUMhSgi6ZeWL0HYBsvZlMDSlATeTcmD7HvJJ5F/LuF5uWOTtR+1cAQ==
+"@socialgouv/eslint-config-recommended@^0.17.0":
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/@socialgouv/eslint-config-recommended/-/eslint-config-recommended-0.17.0.tgz#ede5fa2b80e7e009aff3b8a31c31f79e422de975"
+  integrity sha512-aX9+TehWxdUWxfKnFT/1EXBVfrfI/gYAc2UOchAPtKk5LTHfrnVBUsP3JStN6T0m2BDkM0XT5tQG2aLqwM2O5A==
   dependencies:
     eslint-config-prettier "~6.10.0"
-    eslint-plugin-import "~2.20.0"
-    eslint-plugin-jest "~23.6.0"
+    eslint-plugin-import "~2.20.1"
+    eslint-plugin-jest "~23.8.0"
     eslint-plugin-prettier "~3.1.2"
 
-"@socialgouv/eslint-config-strict@0.16.0":
-  version "0.16.0"
-  resolved "https://registry.yarnpkg.com/@socialgouv/eslint-config-strict/-/eslint-config-strict-0.16.0.tgz#3508be1079ce626255821dc5c55453c57d5d634b"
-  integrity sha512-LMkpeYxW5V8CIbLuZt9zQ0J0wNupVHSLFvN0fx8hSRTkbIadcJedAqObs5cCyEMzhsj28od1smmN4rDo8qyeuw==
+"@socialgouv/eslint-config-strict@0.17.0":
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/@socialgouv/eslint-config-strict/-/eslint-config-strict-0.17.0.tgz#5ffa4561c8fa1f7bf45200489151e3e9de2216d5"
+  integrity sha512-avQR353hw8mw4Zg11gNNozgnyHU0TRkPrDoTWhjW6G8sq8GkiTbVdY5JB2OC+LeT6cuVlpQU4qDD/94ofPF4Ng==
   dependencies:
-    "@socialgouv/eslint-config-recommended" "^0.16.0"
+    "@socialgouv/eslint-config-recommended" "^0.17.0"
     eslint-plugin-simple-import-sort "^5.0.1"
     eslint-plugin-sort-keys-fix "^1.1.0"
 
@@ -432,10 +432,10 @@
   dependencies:
     moment "^2.10.2"
 
-"@types/codemirror@0.0.85":
-  version "0.0.85"
-  resolved "https://registry.yarnpkg.com/@types/codemirror/-/codemirror-0.0.85.tgz#6fc36a0e8b76d58365c4b8a496873f9ed559039c"
-  integrity sha512-ZAVyNzXAHu/mkvvZlq2IYPBjm4X3mEno27epXpBRXwWbX75zAAeGZfubXxft1kWNqBSI2f50kvuJTG+fRwHaNg==
+"@types/codemirror@0.0.87":
+  version "0.0.87"
+  resolved "https://registry.yarnpkg.com/@types/codemirror/-/codemirror-0.0.87.tgz#790b1ef751069074956abeeccd5b1f7fd821fddf"
+  integrity sha512-Yv+cw1zckMDK35QJBMMK/z9ZWUHRUpQ2KJI+MCbR95HhDWtSQsS66j/W9OMq3JUqYL7Jb2zHA7fc575/0v1sfA==
   dependencies:
     "@types/tern" "*"
 
@@ -1856,7 +1856,7 @@ eslint-module-utils@^2.4.1:
     debug "^2.6.9"
     pkg-dir "^2.0.0"
 
-eslint-plugin-import@~2.20.0:
+eslint-plugin-import@~2.20.1:
   version "2.20.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.20.1.tgz#802423196dcb11d9ce8435a5fc02a6d3b46939b3"
   integrity sha512-qQHgFOTjguR+LnYRoToeZWT62XM55MBVXObHM6SKFd1VzDcX/vqT1kAz8ssqigh5eMj8qXcRoXXGZpPP6RfdCw==
@@ -1874,13 +1874,12 @@ eslint-plugin-import@~2.20.0:
     read-pkg-up "^2.0.0"
     resolve "^1.12.0"
 
-eslint-plugin-jest@~23.6.0:
-  version "23.6.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-23.6.0.tgz#508b32f80d44058c8c01257c0ee718cfbd521e9d"
-  integrity sha512-GH8AhcFXspOLqak7fqnddLXEJsrFyvgO8Bm60SexvKSn1+3rWYESnCiWUOCUcBTprNSDSE4CtAZdM4EyV6gPPw==
+eslint-plugin-jest@~23.8.0:
+  version "23.8.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-23.8.1.tgz#247025e8a51b3a25a4cc41166369b0bfb4db83b7"
+  integrity sha512-OycLNqPo/2EfO6kTqnmsu1khz1gTIOxGl3ThIVwL5/oycDF4pm5uNDyvFelNLdpr4COUuM8PVi3963NEG1Efpw==
   dependencies:
     "@typescript-eslint/experimental-utils" "^2.5.0"
-    micromatch "^4.0.2"
 
 eslint-plugin-jsdoc@21.0.0:
   version "21.0.0"
