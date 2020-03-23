@@ -63,7 +63,7 @@
     "keep-a-changelog": "0.10.0",
     "nodemon": "2.0.2",
     "ora": "4.0.3",
-    "prettier": "1.19.1",
+    "prettier": "2.0.2",
     "rimraf": "3.0.2",
     "shelljs": "0.8.3"
   },
