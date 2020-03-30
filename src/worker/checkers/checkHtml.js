@@ -71,10 +71,7 @@ async function checkWebsite({ expectations, name, uri }, webhooks, timeout) {
           throw new Error(`The "${method}" method is not available for html services.`);
         }
 
-        const result = $(selector)
-          .first()
-          [method]()
-          .trim();
+        const result = $(selector).first()[method]().trim();
         if (result !== value) {
           isUp = false;
 

@@ -24,9 +24,7 @@ class WebAdminController {
         return;
       }
 
-      const checkpointsUris = await Checkpoint.find()
-        .distinct("uri")
-        .sort();
+      const checkpointsUris = await Checkpoint.find().distinct("uri").sort();
       const checkpoints = await Promise.all(
         checkpointsUris.map(async uri => ({
           length: numeral((await Checkpoint.find({ uri })).length).format("0,0"),

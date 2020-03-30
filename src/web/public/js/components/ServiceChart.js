@@ -93,7 +93,7 @@ export default class ServiceChart {
                 labelString: "Latency",
                 ticks: {
                   beginAtZero: true,
-                  callback: function(value) {
+                  callback: function (value) {
                     return value < 1000 ? `${value}ms` : `${value / 1000}s`;
                   },
                 },

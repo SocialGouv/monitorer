@@ -35,7 +35,7 @@ export default class Configuration {
           autocorrect: false,
           extraKeys: {
             // Insert spaces instead of tabs when pressing "TAB":
-            Tab: function(cm) {
+            Tab: function (cm) {
               cm.replaceSelection(Array(cm.getOption("indentUnit") + 1).join(" "));
             },
           },
