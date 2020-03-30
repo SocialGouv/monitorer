@@ -35,33 +35,10 @@
         </small>
       </h2>
       <table class="js-maintenance table table-borderless table-striped">
-        <tbody>
-          {{ each checkpoints }}
-            <tr>
-              <th scope="row">{{ $value.uri }}</th>
-              <th class="text-right">{{ $value.length }}</th>
-              <td class="table-buttonCell">
-                <button
-                  class="js-maintenance-cleanButton btn btn-warning btn-sm"
-                  data-uri="{{ $value.uri }}"
-                  title="Remove older-than-one-week history for: {{ $value.uri }}"
-                  type="button"
-                >
-                  CLEAN
-                </button>
-              </td>
-              <td class="table-buttonCell">
-                <button
-                  class="js-maintenance-dropButton btn btn-danger btn-sm"
-                  data-uri="{{ $value.uri }}"
-                  title="Remove the entire history for: {{ $value.uri }}"
-                  type="button"
-                >
-                  DROP
-                </button>
-              </td>
-            </tr>
-          {{ /each }}
+        <tbody class="js-maintenance-body">
+          <tr>
+            <td>Loading…</th>
+          </tr>
         </tbody>
       </table>
     {{ else }}
