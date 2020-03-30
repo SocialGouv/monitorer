@@ -35,7 +35,7 @@ const Checkpoint = require("../../shared/models/Checkpoint");
  *
  * @returns {Promise<void>}
  */
-async function checkHtml({ expectations, name, uri }, webhooks, timeout) {
+async function checkJson({ expectations, name, uri }, webhooks, timeout) {
   if (expectations.length === 0) return;
 
   let isUp = true;
@@ -167,4 +167,4 @@ async function checkHtml({ expectations, name, uri }, webhooks, timeout) {
   }
 }
 
-module.exports = checkHtml;
+module.exports = checkJson;
