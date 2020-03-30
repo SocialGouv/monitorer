@@ -1,4 +1,5 @@
 import checkpointService from "../services/checkpoint.js";
+import serviceService from "../services/service.js";
 
 export default class Maintenance {
   /**
@@ -8,10 +9,11 @@ export default class Maintenance {
    */
   constructor($node) {
     try {
-      /** @type {HTMLFormElement} */
+      /** @type {HTMLTableElement} */
       this.$node = $node;
+      this.$body = $node.querySelector(".js-maintenance-body");
 
-      this.bindEvents();
+      this.load();
     } catch (err) {
       console.error(`[web] [public/js/components/Maintenance()] Error: ${err.message}`);
     }
@@ -36,6 +38,21 @@ export default class Maintenance {
   }
 
   /**
+   * Load services.
+   *
+   * @returns {Promise<void>}
+   */
+  async load() {
+    try {
+      this.services = await serviceService.index();
+
+      this.render();
+    } catch (err) {
+      console.error(`[web] [public/js/components/Maintenance#load()] Error: ${err.message}`);
+    }
+  }
+
+  /**
    * Check for an existing token stored in cookies.
    *
    * @param {MouseEvent} event
@@ -48,7 +65,7 @@ export default class Maintenance {
 
       await checkpointService.delete(uri);
 
-      location.reload();
+      this.load();
     } catch (err) {
       console.error(`[web] [public/js/components/Maintenance#clean()] Error: ${err.message}`);
     }
@@ -67,9 +84,55 @@ export default class Maintenance {
 
       await checkpointService.delete(uri, Date.now());
 
-      location.reload();
+      this.load();
     } catch (err) {
       console.error(`[web] [public/js/components/Maintenance#drop()] Error: ${err.message}`);
+    }
+  }
+
+  /**
+   * Render service.
+   *
+   * @returns {void}
+   */
+  render() {
+    try {
+      const source = this.services
+        .map(
+          ({ length, uri }) => `
+        <tr>
+          <th scope="row">${uri}</th>
+          <th class="text-right">${length}</th>
+          <td class="table-buttonCell">
+            <button
+              class="js-maintenance-cleanButton btn btn-warning btn-sm"
+              data-uri="${uri}"
+              title="Remove older-than-one-week history for: ${uri}"
+              type="button"
+            >
+              CLEAN
+            </button>
+          </td>
+          <td class="table-buttonCell">
+            <button
+              class="js-maintenance-dropButton btn btn-danger btn-sm"
+              data-uri="${uri}"
+              title="Remove the entire history for: ${uri}"
+              type="button"
+            >
+              DROP
+            </button>
+          </td>
+        </tr>
+      `,
+        )
+        .join("\n");
+
+      this.$body.innerHTML = source;
+
+      this.bindEvents();
+    } catch (err) {
+      console.error(`[web] [public/js/components/Maintenance#render()] Error: ${err.message}`);
     }
   }
 }

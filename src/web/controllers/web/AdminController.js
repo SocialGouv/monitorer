@@ -24,18 +24,10 @@ class WebAdminController {
         return;
       }
 
-      const checkpointsUris = await Checkpoint.find().distinct("uri").sort();
-      const checkpoints = await Promise.all(
-        checkpointsUris.map(async uri => ({
-          length: numeral((await Checkpoint.find({ uri })).length).format("0,0"),
-          uri,
-        })),
-      );
-
       const checkpointsStats = await Checkpoint.collection.stats();
       const checkpointsSize = numeral(checkpointsStats.storageSize).format("0,0.0 b");
 
-      ctx.render("pages/admin", { checkpoints, checkpointsSize, configuration, isAdmin });
+      ctx.render("pages/admin", { checkpointsSize, configuration, isAdmin });
     } catch (err) {
       log.err(`[web] [controllers/web/WebAdminController#get()] Error: ${err.message}`);
 
