@@ -893,35 +893,35 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
   integrity sha512-ONhaKPIufzzrlNbqtWFFd+jlnemX6lJAgq9ZeiZtS7I1PIf/la7CW4m83rTXRnVnsMbW2k56pGYu7AUFJD9Pow==
 
-"@socialgouv/eslint-config-react-strict@0.20.0":
-  version "0.20.0"
-  resolved "https://registry.yarnpkg.com/@socialgouv/eslint-config-react-strict/-/eslint-config-react-strict-0.20.0.tgz#e4af19ea8abcf9aede318ae2555a73e6c5f99c90"
-  integrity sha512-HjVXlrsE2ltfUjpClPeTJhbveXW5qXXQn6azeXO/0ZLFJtJv96QoJSuQu/6RBVJC2QBmXLgow6ink/hZpUoWag==
+"@socialgouv/eslint-config-react-strict@0.21.0":
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/@socialgouv/eslint-config-react-strict/-/eslint-config-react-strict-0.21.0.tgz#b6728929cec25a2130df3d0cdf4ac32ac666c560"
+  integrity sha512-gGQEDPrhialuKmWhTCcV4Y82PFwDFKpd/ODc3rnHFCGcI4o4mUX/5NQYlYE7CqZpU2RNkj/2HgDyutcfh2swxQ==
   dependencies:
-    "@socialgouv/eslint-config-strict" "^0.20.0"
+    "@socialgouv/eslint-config-strict" "^0.21.0"
     babel-eslint "^10.1.0"
     eslint-plugin-jsx-a11y "~6.2.3"
     eslint-plugin-react "~7.19.0"
-    eslint-plugin-react-hooks "~3.0.0"
+    eslint-plugin-react-hooks "~4.0.0"
 
-"@socialgouv/eslint-config-recommended@^0.20.0":
-  version "0.20.0"
-  resolved "https://registry.yarnpkg.com/@socialgouv/eslint-config-recommended/-/eslint-config-recommended-0.20.0.tgz#a0df29a4cf6e6a5f1d73f440388b9baeb796f0a5"
-  integrity sha512-uisvQu4vQeXhydMSW1iUs5e/82xTYdxMgo4iiUpEoUgMd2X49N4N6xmYD/3tzVrCr4IFnBk4lzTkaQj6enSPHw==
+"@socialgouv/eslint-config-recommended@^0.21.0":
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/@socialgouv/eslint-config-recommended/-/eslint-config-recommended-0.21.0.tgz#3c7ac23a9e7433a933578ca955156afcbe6f09d0"
+  integrity sha512-5AuRD3n5fAW9v42U3ydYLWoB3ASSOC3SzCIixat4ypbKspSCj+7zHi2V3JlEaePvvilYyy7jNTZLvYGullUfsA==
   dependencies:
-    eslint-config-prettier "~6.10.1"
+    eslint-config-prettier "~6.11.0"
     eslint-plugin-import "~2.20.2"
-    eslint-plugin-jest "~23.8.2"
-    eslint-plugin-prettier "~3.1.2"
+    eslint-plugin-jest "~23.10.0"
+    eslint-plugin-prettier "~3.1.3"
 
-"@socialgouv/eslint-config-strict@^0.20.0":
-  version "0.20.0"
-  resolved "https://registry.yarnpkg.com/@socialgouv/eslint-config-strict/-/eslint-config-strict-0.20.0.tgz#cf349bf51d82937acba9c580f9623a6496c56b61"
-  integrity sha512-yEozEtrbCXs/GaKmS/tOgU1zvAB4WPB2CyBFhYpWiyDBnujblMqu8zdDU13CD9KggqawS0RL9jxuL4B3HYy+0w==
+"@socialgouv/eslint-config-strict@^0.21.0":
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/@socialgouv/eslint-config-strict/-/eslint-config-strict-0.21.0.tgz#75d85f31a8c07274936518aba7a53314fccaf7f9"
+  integrity sha512-uffCYnDr+cXQ9xpLW0CJoMQinGRsimOEhX6Mon0xT8izgE7US1YW00Yb2OFnKPLvxagSktVWKiDlSN28CSeO8w==
   dependencies:
-    "@socialgouv/eslint-config-recommended" "^0.20.0"
-    eslint-plugin-simple-import-sort "^5.0.2"
-    eslint-plugin-sort-keys-fix "^1.1.0"
+    "@socialgouv/eslint-config-recommended" "^0.21.0"
+    eslint-plugin-simple-import-sort "^5.0.3"
+    eslint-plugin-sort-keys-fix "^1.1.1"
 
 "@types/cheerio@^0.22.8":
   version "0.22.18"
@@ -2678,17 +2678,10 @@ escape-string-regexp@^2.0.0:
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-2.0.0.tgz#a30304e99daa32e23b2fd20f51babd07cffca344"
   integrity sha512-UpzcLCXolUWcNu5HtVMHYdXJjArjsF9C0aNnquZYY4uW/Vu0miy5YoWvbV345HauVvcAUnpRuhMMcqTcGOY2+w==
 
-eslint-config-prettier@6.11.0:
+eslint-config-prettier@6.11.0, eslint-config-prettier@~6.11.0:
   version "6.11.0"
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-6.11.0.tgz#f6d2238c1290d01c859a8b5c1f7d352a0b0da8b1"
   integrity sha512-oB8cpLWSAjOVFEJhhyMZh6NOEOtBVziaqdDQ86+qhDHFbZXoRTM7pNSvFRfW/W/L/LrQ38C99J5CGuRBBzBsdA==
-  dependencies:
-    get-stdin "^6.0.0"
-
-eslint-config-prettier@~6.10.1:
-  version "6.10.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-6.10.1.tgz#129ef9ec575d5ddc0e269667bf09defcd898642a"
-  integrity sha512-svTy6zh1ecQojvpbJSgH3aei/Rt7C6i090l5f2WQ4aB05lYHeZIR1qL4wZyyILTbtmnbHP5Yn8MrsOJMGa8RkQ==
   dependencies:
     get-stdin "^6.0.0"
 
@@ -2726,10 +2719,10 @@ eslint-plugin-import@~2.20.2:
     read-pkg-up "^2.0.0"
     resolve "^1.12.0"
 
-eslint-plugin-jest@~23.8.2:
-  version "23.8.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-23.8.2.tgz#6f28b41c67ef635f803ebd9e168f6b73858eb8d4"
-  integrity sha512-xwbnvOsotSV27MtAe7s8uGWOori0nUsrXh2f1EnpmXua8sDfY6VZhHAhHg2sqK7HBNycRQExF074XSZ7DvfoFg==
+eslint-plugin-jest@~23.10.0:
+  version "23.10.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-23.10.0.tgz#4738c7ca9e6513da50f4e99d7b161c1f82fa8e8f"
+  integrity sha512-cHC//nesojSO1MLxVmFJR/bUaQQG7xvMHQD8YLbsQzevR41WKm8paKDUv2wMHlUy5XLZUmNcWuflOi4apS8D+Q==
   dependencies:
     "@typescript-eslint/experimental-utils" "^2.5.0"
 
@@ -2748,17 +2741,17 @@ eslint-plugin-jsx-a11y@~6.2.3:
     has "^1.0.3"
     jsx-ast-utils "^2.2.1"
 
-eslint-plugin-prettier@3.1.3, eslint-plugin-prettier@~3.1.2:
+eslint-plugin-prettier@3.1.3, eslint-plugin-prettier@~3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-3.1.3.tgz#ae116a0fc0e598fdae48743a4430903de5b4e6ca"
   integrity sha512-+HG5jmu/dN3ZV3T6eCD7a4BlAySdN7mLIbJYo0z1cFQuI+r2DiTJEFeF68ots93PsnrMxbzIZ2S/ieX+mkrBeQ==
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
-eslint-plugin-react-hooks@~3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-3.0.0.tgz#9e80c71846eb68dd29c3b21d832728aa66e5bd35"
-  integrity sha512-EjxTHxjLKIBWFgDJdhKKzLh5q+vjTFrqNZX36uIxWS4OfyXe5DawqPj3U5qeJ1ngLwatjzQnmR0Lz0J0YH3kxw==
+eslint-plugin-react-hooks@~4.0.0:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-4.0.2.tgz#03700ca761eacc1b6436074c456f90a8e331ff28"
+  integrity sha512-kAMRjNztrLW1rK+81X1NwMB2LqG+nc7Q8AibnG8/VyWhQK8SP6JotCFG+HL4u1EjziplxVz4jARdR8gGk8pLDA==
 
 eslint-plugin-react@~7.19.0:
   version "7.19.0"
@@ -2778,12 +2771,12 @@ eslint-plugin-react@~7.19.0:
     string.prototype.matchall "^4.0.2"
     xregexp "^4.3.0"
 
-eslint-plugin-simple-import-sort@^5.0.2:
+eslint-plugin-simple-import-sort@^5.0.3:
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/eslint-plugin-simple-import-sort/-/eslint-plugin-simple-import-sort-5.0.3.tgz#9ae258ddada6efffc55e47a134afbd279eb31fc6"
   integrity sha512-1rf3AWiHeWNCQdAq0iXNnlccnH1UDnelGgrPbjBBHE8d2hXVtOudcmy0vTF4hri3iJ0MKz8jBhmH6lJ0ZWZLHQ==
 
-eslint-plugin-sort-keys-fix@^1.1.0:
+eslint-plugin-sort-keys-fix@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-sort-keys-fix/-/eslint-plugin-sort-keys-fix-1.1.1.tgz#2ed201b53fd4a89552c6e2abd38933f330a4b62e"
   integrity sha512-x02SLBg+8OEaoT9vvMbsgeInw17wjHLsa9cOieIVQY+xMNRiXBbyMWw+NiBoxYyJIR4QKDOPDofCjQdoSvltQg==
