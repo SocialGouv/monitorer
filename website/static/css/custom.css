@@ -12,9 +12,20 @@
   border-radius: 0;
 }
 
+.fourByGridBlock img {
+  max-height: 3.5rem;
+}
+
 article p img.buttonDeploy {
   height: 42px;
   width: auto;
+}
+
+sup {
+  font-size: 0.75em;
+  margin-left: 0.375em;
+  line-height: 0;
+  vertical-align: 0.375em;
 }
 
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
