@@ -26,7 +26,7 @@
     "postversion": "git push origin HEAD && git push --tags"
   },
   "dependencies": {
-    "@inspired-beings/log": "1.2.0",
+    "@inspired-beings/log": "2.0.0",
     "ajv": "6.12.2",
     "art-template": "4.13.2",
     "axios": "0.19.2",
