@@ -14,7 +14,7 @@
           start: yarn start
   variables:
       env:
-          MONGO_URI: mongodb://main:$main@main:27017/main
+          MONGO_URI: mongodb://main:main@mongodb.internal:27017/main
           # Website administration password:
           MONITORER_ADMIN_PASSWORD: changeme
           # Website administration username:
