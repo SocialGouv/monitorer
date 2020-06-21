@@ -12,9 +12,9 @@
     "write-translations": "docusaurus-write-translations"
   },
   "devDependencies": {
-    "@socialgouv/eslint-config-react-strict": "0.28.0",
+    "@socialgouv/eslint-config-react-strict": "0.33.0",
     "docusaurus": "1.14.4",
-    "eslint": "7.2.0",
+    "eslint": "7.3.0",
     "eslint-config-prettier": "6.11.0",
     "eslint-plugin-prettier": "3.1.4",
     "prettier": "2.0.5"
