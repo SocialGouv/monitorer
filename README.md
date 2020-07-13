@@ -32,6 +32,10 @@ Please read [our documentation][link-documentation].
 
 ## One-Click Deployment
 
+### Platform.sh
+
+<a href="https://console.platform.sh/projects/create-project/?template=https://github.com/SocialGouv/monitorer&utm_campaign=deploy_on_platform?utm_medium=button&utm_source=affiliate_links&utm_content=https://github.com/SocialGouv/monitorer" target="_blank" title="Deploy with Platform.sh"><img src="https://platform.sh/images/deploy/deploy-button-lg-blue.svg"></a>
+
 ### Heroku
 
 [![Deploy to Heroku][img-heroku]][link-heroku]
