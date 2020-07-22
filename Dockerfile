@@ -1,4 +1,4 @@
-FROM node:12.16.3-alpine
+FROM node:14-alpine
 
 # MongoDB instance URI:
 ENV MONGO_URI=

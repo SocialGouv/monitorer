@@ -1,6 +1,7 @@
 language: node_js
+
 node_js:
-  - "v12.16.3"
+  - "14"
 
 cache:
   yarn: true
@@ -22,7 +23,12 @@ install:
 jobs:
   include:
     - stage: Test
-      name: Unit Tests
+      name: Unit Tests (v12)
+      node_js: 12
+      after_script:
+        - npx codecov
+    - stage: Test
+      name: Unit Tests (v14)
       after_script:
         - npx codecov
 
@@ -57,7 +63,7 @@ jobs:
         - echo "machine github.com login ${GITHUB_NAME} password ${GITHUB_TOKEN}" > ~/.netrc
         - GIT_USER="${GITHUB_NAME}" yarn publish-gh-pages
 
-# Limit branches builds to "master" & "develop" ones:
+# Limit branch builds to "master", "develop" and version ones:
 branches:
   only:
     - develop
