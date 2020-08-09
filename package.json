@@ -62,7 +62,7 @@
     "jest": "26.2.2",
     "keep-a-changelog": "0.10.1",
     "nodemon": "2.0.4",
-    "ora": "4.0.5",
+    "ora": "5.0.0",
     "prettier": "2.0.5",
     "rimraf": "3.0.2",
     "shelljs": "0.8.4"
