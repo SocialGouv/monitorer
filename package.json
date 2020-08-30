@@ -38,7 +38,7 @@
     "koa-bodyparser": "4.3.0",
     "koa-router": "9.4.0",
     "koa-static": "5.0.0",
-    "mongoose": "5.10.0",
+    "mongoose": "5.10.2",
     "node-cache": "5.1.2",
     "numeral": "2.0.6",
     "ramda": "0.27.1",
@@ -63,7 +63,7 @@
     "keep-a-changelog": "0.10.1",
     "nodemon": "2.0.4",
     "ora": "5.0.0",
-    "prettier": "2.0.5",
+    "prettier": "2.1.1",
     "rimraf": "3.0.2",
     "shelljs": "0.8.4"
   },
