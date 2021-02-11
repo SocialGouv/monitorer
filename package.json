@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@inspired-beings/log": "2.0.0",
-    "ajv": "6.12.6",
+    "ajv": "7.1.0",
     "art-template": "4.13.2",
     "axios": "0.21.0",
     "cheerio": "1.0.0-rc.3",
