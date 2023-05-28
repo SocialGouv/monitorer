@@ -29,7 +29,7 @@
     "@inspired-beings/log": "2.0.0",
     "ajv": "6.12.6",
     "art-template": "4.13.2",
-    "axios": "0.21.0",
+    "axios": "0.21.2",
     "cheerio": "1.0.0-rc.3",
     "cron": "1.8.2",
     "dotenv": "8.2.0",
