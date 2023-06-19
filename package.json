@@ -55,7 +55,7 @@
     "concurrently": "5.3.0",
     "cpy-cli": "3.1.1",
     "eslint": "7.14.0",
-    "eslint-config-prettier": "6.15.0",
+    "eslint-config-prettier": "8.8.0",
     "eslint-plugin-jsdoc": "27.0.7",
     "eslint-plugin-prettier": "3.1.4",
     "eslint-plugin-sort-requires": "2.1.0",

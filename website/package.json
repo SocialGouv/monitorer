@@ -15,7 +15,7 @@
     "@socialgouv/eslint-config-react-strict": "0.35.0",
     "docusaurus": "1.14.6",
     "eslint": "7.14.0",
-    "eslint-config-prettier": "6.15.0",
+    "eslint-config-prettier": "8.8.0",
     "eslint-plugin-prettier": "3.1.4",
     "prettier": "2.2.0"
   }
